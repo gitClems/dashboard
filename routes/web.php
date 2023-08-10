@@ -14,7 +14,5 @@ use App\Http\Controllers\expeditionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () {return view('index');})->name("index");
 Route::get('/dashboard',[expeditionController::class,'display'])->name("dashboard");
