@@ -18,10 +18,17 @@
         }
 
         .chart-container {
-            width: 100vh;
-            box-shadow: 1px 1px 5px grey;
+            width: 98vh;
+            box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.347);
             margin: 15px
         }
+
+        .chart-type-expedition-container {
+            width: 30vh;
+            box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.347);
+            margin: 15px
+        }
+
         main {
             display: flex;
             flex-wrap: wrap
@@ -36,6 +43,14 @@
         @endcomponent
 
         @component('components.affaire', ['min' => $min, 'max' => $max, 'result' => $result])
+        @endcomponent
+
+        @component('components.type_expedition', [
+            'min' => $min,
+            'max' => $max,
+            'typeExpedition' => $typeExpedition,
+            'result' => $result,
+        ])
         @endcomponent
     </main>
 </body>

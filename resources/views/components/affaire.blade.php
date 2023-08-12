@@ -30,8 +30,8 @@
             let datasets = [{
                 label: "Chiffre d'affaire",
                 data: data,
-                backgroundColor: "blue",
-                borderColor: "blue",
+                backgroundColor: "yellowgreen",
+                borderColor: "yellowgreen",
                 pointStyle: false,
                 borderWidth: 2
             }, ]

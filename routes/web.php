@@ -16,3 +16,4 @@ use App\Http\Controllers\expeditionController;
 
 Route::get('/', function () {return view('index');})->name("index");
 Route::get('/dashboard',[expeditionController::class,'display'])->name("dashboard");
+// Route::get('dashboard/type', function () {return view('components.type_expedition');})->name('type');

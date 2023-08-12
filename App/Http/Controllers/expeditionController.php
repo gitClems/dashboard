@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use DB;
 
 class expeditionController extends Controller {
-    function display (Request $request) {
-        
+    function display ( Request $request ) {
+
         $result = DB::select(
             "SELECT *
                 from kpi_test "
+        );
+        $typeExpedition = DB::select(
+            'SELECT SUM(NB_EXPEDITIONS_C2C) as C2C, SUM(NB_AIO_EXPEDITIONS) as AIO from kpi_test '
         );
 
         if ( $request->ajax() ) {
@@ -25,6 +28,7 @@ class expeditionController extends Controller {
             );
             return  response()->json( $result );
         }
+
         $monMin = DB::select(
             "SELECT MIN(DATE_REPORT) as myMin
                 from kpi_test"
@@ -35,6 +39,7 @@ class expeditionController extends Controller {
         );
         $min = $monMin[ 0 ]->myMin;
         $max = $monMax[ 0 ]->myMax;
-        return view( 'dashboard', compact( [ 'result', 'min', 'max' ] ) );
+        // dd( $result->NB_EXPEDITIONS_C2C );
+        return view( 'dashboard', compact( [ 'result', 'min', 'max','typeExpedition'] ) );
     }
 }

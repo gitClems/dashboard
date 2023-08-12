@@ -1,5 +1,5 @@
 <div class="chart-container">
-    <canvas id="expedi-glo-chart"></canvas>
+    <canvas id="expedition-global-chart"></canvas>
     <div>
         <label for="type-line">Courbe</label>
         <input type="radio" class="expedition-global-chart-type" name="expedition-global-chart-type" id="type-line" value='line'
@@ -13,10 +13,10 @@
         crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
-            const ctx = $("#expedi-glo-chart")
+            const ctx = $("#expedition-global-chart")
 
             // Définition du graphe initial
-            let data = [
+            let data = [    
                 @foreach ($result as $res)
                     {{ $res->NB_EXPEDITIONS }},
                 @endforeach
