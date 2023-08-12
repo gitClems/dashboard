@@ -81,7 +81,7 @@
                         'end': `{{ $max }}`
                     },
                     success: function(response) {
-                        data = response.map((element) => element.NB_EXPEDITIONS)
+                        data = response.map((element) => element.CHIFFRE_AFFAIRE)
                         labels = response.map((element) => element.DATE_REPORT, )
                         MyChart.data.labels = labels
                         MyChart.data.datasets[0].data = data

@@ -5,13 +5,22 @@
         crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
+
             const ctx = $("#type-expedition-chart")
+
+            function contractInt(param) {
+                param = 100 * (param / (c2c + aio))
+                return param.toFixed(2)
+            }
+
             // Définition du graphe initial
             var c2c = {{ $typeExpedition[0]->C2C }}
             var aio = {{ $typeExpedition[0]->AIO }}
             let data = [c2c, aio]
-
-            let labels = [`C2C : ${100*(c2c/(c2c+aio)).toFixed(2)}%`, `AIO : ${100*(aio/(c2c+aio)).toFixed(2)}%`]
+            let labels = [
+                `C2C : ${contractInt(c2c)}%`,
+                `AIO : ${contractInt(aio)}%`
+            ]
 
             let datasets = [{
                 label: "Expéditions",
@@ -19,18 +28,15 @@
                 backgroundColor: ["yellowgreen", "blue"],
                 // borderColor: "red",
                 pointStyle: false,
-                borderWidth: 2
+                borderWidth: 0.5
             }, ]
 
             var MyChart = new Chart(ctx, {
-                type: 'doughnut',
+                type: 'pie',
                 data: {
                     labels: labels,
                     datasets: datasets
                 },
-                options: {
-                    fill: false,
-                }
             })
             // Capturer le changement des dates de départ et de fin dans l'interval
             $('#end-date, #start-date').change(function() {
@@ -43,7 +49,7 @@
                         'start': start,
                         'end': end
                     },
-                    success: function(response) {
+                    success: async function(response) {
                         var c2cList = response.map((element) => element.NB_EXPEDITIONS_C2C)
                         var aioList = response.map((element) => element.NB_AIO_EXPEDITIONS)
                         c2c = c2cList.reduce((accumulator, currentValue) => {
@@ -57,9 +63,9 @@
                             c2c,
                             aio
                         ]
-                        // console.log(data);
-                        labels = [`C2C : ${100*(c2c/(c2c+aio)).toFixed(2)}%`,
-                            `AIO : ${100*(aio/(c2c+aio)).toFixed(2)}%`
+                        labels = [
+                            `C2C : ${c2c ? contractInt(c2c) :"---"}%`,
+                            `AIO : ${aio ? contractInt(aio) :"---"}%`
                         ]
                         MyChart.data.labels = labels
                         MyChart.data.datasets[0].data = data
@@ -94,6 +100,11 @@
                             c2c,
                             aio
                         ]
+                        labels = [
+                            `C2C : ${c2c ? contractInt(c2c) :"---"}%`,
+                            `AIO : ${aio ? contractInt(aio) :"---"}%`
+                        ]
+                        MyChart.data.labels = labels
                         MyChart.data.datasets[0].data = data
                         MyChart.update()
                         $('#start-date').val(`{{ $min }}`)
