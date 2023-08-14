@@ -1,5 +1,5 @@
 <div class="chart-container">
-    <canvas id="expedition-global-chart"></canvas>
+    <canvas id="expedition-global-chart" class="top-chart expedition-global-chart"></canvas>
     <div>
         <label for="type-line">Courbe</label>
         <input type="radio" class="expedition-global-chart-type" name="expedition-global-chart-type" id="type-line" value='line'

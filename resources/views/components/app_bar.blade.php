@@ -2,6 +2,12 @@
     <div class="container-fluid">
         <div class="navbar-brand">Express relai</div>
         <div>
+            {{-- <select name="default-range-select" id="default-range-select" style="width: 110px">
+                <option value="this_week">This week</option>
+                <option value="last_week">Last week</option>
+                <option value="last_month">This month</option>
+                <option value="last_month">Last month</option>
+            </select> --}}
             <input type="date" name="" id="start-date" value="{{ $min }}" min="{{ $min }}">
             <input type="date" name="" id="end-date" value="{{ $max }}" max="{{ $max }}">
             <button id="reset-date-range">Reset date</button>

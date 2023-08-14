@@ -5,12 +5,15 @@
         crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
-
             const ctx = $("#type-expedition-chart")
 
             function contractInt(param) {
                 param = 100 * (param / (c2c + aio))
-                return param.toFixed(2)
+                if (param) {
+                    return param.toFixed(2)
+                } else {
+                    return "---"
+                }
             }
 
             // Définition du graphe initial
@@ -26,7 +29,6 @@
                 label: "Expéditions",
                 data: data,
                 backgroundColor: ["yellowgreen", "blue"],
-                // borderColor: "red",
                 pointStyle: false,
                 borderWidth: 0.5
             }, ]
@@ -38,6 +40,29 @@
                     datasets: datasets
                 },
             })
+
+            function updateCharts(response) {
+                var c2cList = response.map((element) => element.NB_EXPEDITIONS_C2C)
+                var aioList = response.map((element) => element.NB_AIO_EXPEDITIONS)
+                c2c = c2cList.reduce((accumulator, currentValue) => {
+                    return accumulator + currentValue
+                }, 0)
+                aio = aioList.reduce((accumulator, currentValue) => {
+                    return accumulator + currentValue
+                }, 0)
+
+                data = [
+                    c2c,
+                    aio
+                ]
+                labels = [
+                    `C2C : ${contractInt(aio) == 100.00 ? "    0.00" : contractInt(c2c) }%`,
+                    `AIO : ${contractInt(c2c) == 100.00 ? "    0.00" : contractInt(aio) }%`
+                ]
+                MyChart.data.labels = labels
+                MyChart.data.datasets[0].data = data
+                MyChart.update()
+            }
             // Capturer le changement des dates de départ et de fin dans l'interval
             $('#end-date, #start-date').change(function() {
                 const end = $('#end-date').val()
@@ -49,27 +74,8 @@
                         'start': start,
                         'end': end
                     },
-                    success: async function(response) {
-                        var c2cList = response.map((element) => element.NB_EXPEDITIONS_C2C)
-                        var aioList = response.map((element) => element.NB_AIO_EXPEDITIONS)
-                        c2c = c2cList.reduce((accumulator, currentValue) => {
-                            return accumulator + currentValue
-                        }, 0)
-                        aio = aioList.reduce((accumulator, currentValue) => {
-                            return accumulator + currentValue
-                        }, 0)
-
-                        data = [
-                            c2c,
-                            aio
-                        ]
-                        labels = [
-                            `C2C : ${c2c ? contractInt(c2c) :"---"}%`,
-                            `AIO : ${aio ? contractInt(aio) :"---"}%`
-                        ]
-                        MyChart.data.labels = labels
-                        MyChart.data.datasets[0].data = data
-                        MyChart.update()
+                    success: function(response) {
+                        updateCharts(response)
                     },
                     error: function(error) {
                         alert("Oups ! Something went wrong")
@@ -87,26 +93,7 @@
                         'end': `{{ $max }}`
                     },
                     success: function(response) {
-                        var c2cList = response.map((element) => element.NB_EXPEDITIONS_C2C)
-                        var aioList = response.map((element) => element.NB_AIO_EXPEDITIONS)
-                        c2c = c2cList.reduce((accumulator, currentValue) => {
-                            return accumulator + currentValue
-                        }, 0)
-                        aio = aioList.reduce((accumulator, currentValue) => {
-                            return accumulator + currentValue
-                        }, 0)
-
-                        data = [
-                            c2c,
-                            aio
-                        ]
-                        labels = [
-                            `C2C : ${c2c ? contractInt(c2c) :"---"}%`,
-                            `AIO : ${aio ? contractInt(aio) :"---"}%`
-                        ]
-                        MyChart.data.labels = labels
-                        MyChart.data.datasets[0].data = data
-                        MyChart.update()
+                        updateCharts(response)
                         $('#start-date').val(`{{ $min }}`)
                         $('#end-date').val(`{{ $max }}`)
                     },

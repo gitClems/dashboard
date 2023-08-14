@@ -1,5 +1,5 @@
 <div class="chart-container">
-    <canvas id="chiffre-affaire-global-chart"></canvas>
+    <canvas id="chiffre-affaire-global-chart" class="top-chart chiffre-affaire-global-chart"></canvas>
     <div>
         <label for="type-line">Courbe</label>
         <input type="radio" class="chiffre-affaire-global-chart-type" name="chiffre-affaire-global-chart-type" id="type-line" value='line' checked>
@@ -13,20 +13,17 @@
     <script>
         $(document).ready(function() {
             const ctx = $("#chiffre-affaire-global-chart")
-
             // Définition du graphe initial
             let data = [
                 @foreach ($result as $res)
                     {{ $res->CHIFFRE_AFFAIRE }},
                 @endforeach
             ]
-
             let labels = [
                 @foreach ($result as $res)
                     `{{ $res->DATE_REPORT }}`,
                 @endforeach
             ]
-
             let datasets = [{
                 label: "Chiffre d'affaire",
                 data: data,
