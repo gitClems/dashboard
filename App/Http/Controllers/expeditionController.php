@@ -13,7 +13,7 @@ class expeditionController extends Controller {
                 from kpi_test "
         );
         $typeExpedition = DB::select(
-            'SELECT SUM(NB_EXPEDITIONS_C2C) as C2C, SUM(NB_AIO_EXPEDITIONS) as AIO from kpi_test '
+            'SELECT SUM(NB_EXPEDITIONS_C2C) as C2C, SUM(NB_AIO_EXPEDITIONS) as AIO, SUM(NB_EXPEDITIONS) as TOTAL_SUM from kpi_test '
         );
 
         if ( $request->ajax() ) {

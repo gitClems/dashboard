@@ -2,10 +2,11 @@
     <canvas id="expedition-global-chart" class="top-chart expedition-global-chart"></canvas>
     <div>
         <label for="type-line">Courbe</label>
-        <input type="radio" class="expedition-global-chart-type" name="expedition-global-chart-type" id="type-line" value='line'
-            checked>
+        <input type="radio" class="expedition-global-chart-type" name="expedition-global-chart-type" id="type-line"
+            value='line' checked>
         <label for="type-bar">Histogramme</label>
-        <input type="radio" class="expedition-global-chart-type" name="expedition-global-chart-type" id="type-bar" value='bar'>
+        <input type="radio" class="expedition-global-chart-type" name="expedition-global-chart-type" id="type-bar"
+            value='bar'>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -16,7 +17,7 @@
             const ctx = $("#expedition-global-chart")
 
             // Définition du graphe initial
-            let data = [    
+            let data = [
                 @foreach ($result as $res)
                     {{ $res->NB_EXPEDITIONS }},
                 @endforeach
@@ -48,6 +49,13 @@
                 }
             })
 
+            function updateCharts(response) {
+                data = response.map((element) => element.NB_EXPEDITIONS)
+                labels = response.map((element) => element.DATE_REPORT)
+                MyChart.data.labels = labels
+                MyChart.data.datasets[0].data = data
+                MyChart.update()
+            }
             // Capturer le changement des dates de départ et de fin dans l'interval
             $('#end-date, #start-date').change(function() {
                 const end = $('#end-date').val()
@@ -60,11 +68,7 @@
                         'end': end
                     },
                     success: function(response) {
-                        data = response.map((element) => element.NB_EXPEDITIONS)
-                        labels = response.map((element) => element.DATE_REPORT)
-                        MyChart.data.labels = labels
-                        MyChart.data.datasets[0].data = data
-                        MyChart.update()
+                        updateCharts(response)
                     },
                     error: function(error) {
                         alert("Oups ! Something went wrong")
@@ -82,11 +86,7 @@
                         'end': `{{ $max }}`
                     },
                     success: function(response) {
-                        data = response.map((element) => element.NB_EXPEDITIONS)
-                        labels = response.map((element) => element.DATE_REPORT, )
-                        MyChart.data.labels = labels
-                        MyChart.data.datasets[0].data = data
-                        MyChart.update()
+                        updateCharts(response)
                         $('#start-date').val(`{{ $min }}`)
                         $('#end-date').val(`{{ $max }}`)
                     },

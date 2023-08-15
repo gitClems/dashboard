@@ -2,16 +2,20 @@
     <div class="container-fluid">
         <div class="navbar-brand">Express relai</div>
         <div>
-            {{-- <select name="default-range-select" id="default-range-select" style="width: 110px">
-                <option value="this_week">This week</option>
-                <option value="last_week">Last week</option>
-                <option value="last_month">This month</option>
-                <option value="last_month">Last month</option>
-            </select> --}}
-            <input type="date" name="" id="start-date" value="{{ $min }}" min="{{ $min }}">
-            <input type="date" name="" id="end-date" value="{{ $max }}" max="{{ $max }}">
-            <button id="reset-date-range">Reset date</button>
+            <select name="" id="date-range-select">
+                <option value="this-week">This week</option>
+                <option value="last-week">Last week</option>
+                <option value="this-month">This month</option>
+                <option value="last-month">Last month</option>
+                <option value="custom-range">Custom range</option>
+            </select>
+            <input type="date" name="" id="start-date" value="{{ $min }}" min="{{ $min }}"
+                @disabled(true)> 
+            <input type="date" name="" id="end-date" value="{{ $max }}" max="{{ $max }}"
+                @disabled(true)>
+            <button id="reset-date-range" @disabled(true)>Reset date</button>
         </div>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
             aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

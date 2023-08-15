@@ -19,16 +19,17 @@
             // Définition du graphe initial
             var c2c = {{ $typeExpedition[0]->C2C }}
             var aio = {{ $typeExpedition[0]->AIO }}
-            let data = [c2c, aio]
+            // var  = {{ $typeExpedition[0]->TOTAL_SUM - $typeExpedition[0]->AIO - $typeExpedition[0]->C2C }}
+            let data = [c2c, aio, ]
             let labels = [
                 `C2C : ${contractInt(c2c)}%`,
-                `AIO : ${contractInt(aio)}%`
+                `AIO : ${contractInt(aio)}%`,
             ]
 
             let datasets = [{
                 label: "Expéditions",
                 data: data,
-                backgroundColor: ["yellowgreen", "blue"],
+                backgroundColor: ["yellowgreen", "blue", "purple"],
                 pointStyle: false,
                 borderWidth: 0.5
             }, ]
@@ -53,16 +54,70 @@
 
                 data = [
                     c2c,
-                    aio
+                    aio,
                 ]
                 labels = [
                     `C2C : ${contractInt(aio) == 100.00 ? "    0.00" : contractInt(c2c) }%`,
-                    `AIO : ${contractInt(c2c) == 100.00 ? "    0.00" : contractInt(aio) }%`
+                    `AIO : ${contractInt(c2c) == 100.00 ? "    0.00" : contractInt(aio) }%`,
                 ]
                 MyChart.data.labels = labels
                 MyChart.data.datasets[0].data = data
                 MyChart.update()
             }
+
+            $("#date-range-select").change(async function() {
+                let rangeType = $(this).val()
+                var start = moment().startOf('week')
+                var end = moment().endOf('week')
+                if (rangeType == 'custom-range') {
+                    document.getElementById("start-date").disabled = false
+                    document.getElementById("end-date").disabled = false
+                    document.getElementById("reset-date-range").disabled = false
+                } else {
+                    document.getElementById("start-date").disabled = true
+                    document.getElementById("end-date").disabled = true
+                    document.getElementById("reset-date-range").disabled = true
+                    switch (rangeType) {
+                        case "this-week":
+                            start = moment().startOf('week')
+                            end = moment().endOf('week')
+                            break
+                        case "last-week":
+                            start = moment().subtract(1, 'week').startOf('week')
+                            end = moment().subtract(1, 'week').endOf('week')
+                            break
+                        case "last-month":
+                            start = moment().subtract(1, 'month').startOf('month')
+                            end = moment().subtract(1, 'month').endOf('month')
+                            break
+                        case "this-month":
+                            start = moment().startOf('month')
+                            end = moment().endOf('month')
+                            break
+
+                        default:
+                            break
+                    }
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ route('dashboard') }}",
+                        data: {
+                            'start': start.format('YYYY-MM-DD'),
+                            'end': end.format('YYYY-MM-DD'),
+                        },
+                        success: function(response) {
+                            updateCharts(response)
+                            $('#start-date').val(start.format("YYYY-MM-DD"))
+                            $('#end-date').val(end.format("YYYY-MM-DD"))
+                        },
+                        error: function(error) {
+                            alert("Oups ! Something went wrong")
+                        }
+                    });
+                }
+            })
+
+
             // Capturer le changement des dates de départ et de fin dans l'interval
             $('#end-date, #start-date').change(function() {
                 const end = $('#end-date').val()
@@ -77,9 +132,6 @@
                     success: function(response) {
                         updateCharts(response)
                     },
-                    error: function(error) {
-                        alert("Oups ! Something went wrong")
-                    }
                 });
             })
 
@@ -94,12 +146,7 @@
                     },
                     success: function(response) {
                         updateCharts(response)
-                        $('#start-date').val(`{{ $min }}`)
-                        $('#end-date').val(`{{ $max }}`)
                     },
-                    error: function(error) {
-                        alert("Oups ! Something went wrong")
-                    }
                 });
             })
         })
