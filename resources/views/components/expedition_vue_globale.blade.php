@@ -30,7 +30,7 @@
                 data: data,
                 backgroundColor: "rgb(206, 206, 50,1)",
                 borderColor: "rgb(206, 206, 50,1)",
-                pointStyle: false,
+                pointStyle: true,
                 borderWidth: 2
             }, ]
 
@@ -44,21 +44,16 @@
             })
 
             function updateCharts(response) {
-                var error
                 data = response.map((element) => element.NB_EXPEDITIONS)
                 labels = response.map((element) => moment(element.DATE_REPORT).format('DD/MM/YY'))
                 MyChart.data.labels = labels
+                if (labels.length > 45) {
+                    MyChart.data.datasets[0].pointStyle = false
+                } else {
+                    MyChart.data.datasets[0].pointStyle = true
+                }
                 MyChart.data.datasets[0].data = data
                 MyChart.update()
-                // if (data.length > 0) {
-                //     error = document.getElementById("expedition-global-chart-error")
-                //     error.innerHTML = ""
-                // } else {
-                //     error = document.getElementById("expedition-global-chart-error")
-                //     error.innerHTML =
-                //     "<strong style='font-size : 10px'>Aucune donnée disponible ou intervalle erroné !</strong>"
-                //     error.style.color = "red"
-                // }
             }
 
 

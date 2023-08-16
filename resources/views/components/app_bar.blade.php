@@ -48,13 +48,16 @@
 <style>
     #start-date,
     #end-date {
-        width: 110px
+        width: 110px;
+        border-radius: 5px
     }
     #error-append{
         font-size : 8px;
         color: orange;
-        font-weight: bold
+        font-weight: bold;
     }
+    /* #date-range-select{
+    } */
 </style>
 <script>
     var start = moment().startOf('week')

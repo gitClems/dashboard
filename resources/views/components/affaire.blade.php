@@ -16,7 +16,7 @@
         $(document).ready(function() {
             const ctx = $("#chiffre-affaire-global-chart")
             // Définition du graphe initial
-            
+
             let data
             let labels
 
@@ -45,16 +45,21 @@
                 labels = response.map((element) => moment(element.DATE_REPORT).format('DD/MM/YY'))
                 MyChart.data.labels = labels
                 MyChart.data.datasets[0].data = data
+                if (labels.length > 45) {
+                    MyChart.data.datasets[0].pointStyle = false
+                } else {
+                    MyChart.data.datasets[0].pointStyle = true
+                }
                 MyChart.update()
             }
 
-            
+
             // On donne par defaut un interval de date dans lequel on va afficher les données dans les grapqhes
             // Pour notre on décide de prendre pour intervall la semaine courante
             var start = moment().startOf('week')
             var end = moment().endOf('week')
 
-            
+
             // Pour une meilleur expérience Ajax reste l'une des méthodes d'extraction et d'interaction entre les requetts et le servers
             // On affiche les premières valeurs
             $.ajax({
@@ -69,7 +74,7 @@
                 },
             });
 
-            
+
             // Ici se trouve un évènement qui capture la selection des intervalles
             // *** La semaine courante
             // *** La dernière semaine
@@ -132,7 +137,7 @@
                 }
             })
 
-            
+
             // Dans le cas ou le type d'intervalle choisi par l'utilisateur est un de type personnalisé
             // Capturer les changements des dates de départ et de fin dans l'interval et on exécute la requete ajax
             $('#end-date, #start-date').change(function() {

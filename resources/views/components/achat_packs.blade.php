@@ -1,16 +1,16 @@
 <div class="chart-container">
-    <canvas id="type-expedition-chart" class="middle-chart"></canvas>
+    <canvas id="chart-achat-packs-expedition" class="middle-chart"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
         crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
-            const ctx = $("#type-expedition-chart")
+            const ctx = $("#chart-achat-packs-expedition")
 
             // On crée une fonction pour arrondire des valeurs numériques.
             // Un fonction réutilisable
             function contractInt(param) {
-                param = 100 * (param / (c2c + aio))
+                param = 100 * (param / (pack + oneShot))
                 if (param) {
                     return param.toFixed(2)
                 } else {
@@ -18,18 +18,17 @@
                 }
             }
             // Définition du graphe initial
-            var c2c // Nombre d'expéditions C2C
-            var aio // Nombre d'expéditions AIO
-            let data // Les données inscrites dans le tableaux data [c2c,aio]
-            let labels // Les labels (C2C et AIO)
+            var pack // Nombre d'expéditions pack
+            var oneShot // Nombre d'expéditions oneShot
+            let data // Les données inscrites dans le tableaux data [pack,oneShot]
+            let labels // Les labels (pack et oneShot)
 
 
             let datasets = [{
                 label: "Expéditions",
                 data: data,
-                backgroundColor: ["yellowgreen", "skyblue"],
-                pointStyle: false,
-                borderWidth: 0.1
+                backgroundColor: ["yellowgreen", "purple"],
+                borderWidth: 0.1,
             }, ]
             // Définir le graphique MyChart avec les configurations initiales qui vont avec
             var MyChart = new Chart(ctx, {
@@ -43,19 +42,19 @@
             // On crée une fonction pour les mise à jours des données.
             // Un fonction réutilisable
             function updateCharts(response) {
-                var c2cList = response.map((element) => element.NB_EXPEDITIONS_C2C)
-                var aioList = response.map((element) => element.NB_AIO_EXPEDITIONS)
-                c2c = c2cList.reduce((accumulator, currentValue) => {
+                var packList = response.map((element) => element.NB_ACHATS_PACK)
+                var oneShotList = response.map((element) => element.NB_ACHATS_ONESHOT)
+                pack = packList.reduce((accumulator, currentValue) => {
                     return accumulator + currentValue
                 }, 0)
-                aio = aioList.reduce((accumulator, currentValue) => {
+                oneShot = oneShotList.reduce((accumulator, currentValue) => {
                     return accumulator + currentValue
                 }, 0)
 
-                data = [c2c, aio]
+                data = [pack, oneShot]
                 labels = [
-                    `C2C : ${contractInt(aio) == 100.00 ? "    0.00" : contractInt(c2c) }%`,
-                    `AIO : ${contractInt(c2c) == 100.00 ? "    0.00" : contractInt(aio) }%`
+                    `pack : ${contractInt(oneShot) == 100.00 ? "    0.00" : contractInt(pack) }%`,
+                    `oneShot : ${contractInt(pack) == 100.00 ? "    0.00" : contractInt(oneShot) }%`
                 ]
                 MyChart.data.labels = labels
                 MyChart.data.datasets[0].data = data
