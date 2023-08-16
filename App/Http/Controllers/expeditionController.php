@@ -17,16 +17,20 @@ class expeditionController extends Controller {
         );
 
         if ( $request->ajax() ) {
-            $start = $request->start;
-            $end = $request->end;
-            $result = DB::select(
-                "SELECT *
+            try {
+                $start = $request->start;
+                $end = $request->end;
+                $result = DB::select(
+                    "SELECT *
                     from kpi_test 
                     where DATE_REPORT between ? and ? 
                 ",
-                [ $start, $end ]
-            );
-            return  response()->json( $result );
+                    [ $start, $end ]
+                );
+                return  response()->json( $result );
+            } catch ( \Throwable $th ) {
+                //throw $th;
+            }
         }
 
         $monMin = DB::select(
@@ -39,7 +43,7 @@ class expeditionController extends Controller {
         );
         $min = $monMin[ 0 ]->myMin;
         $max = $monMax[ 0 ]->myMax;
-        // dd( $result->NB_EXPEDITIONS_C2C );
-        return view( 'dashboard', compact( [ 'result', 'min', 'max','typeExpedition'] ) );
+
+        return view( 'dashboard', compact( [ 'result', 'min', 'max', 'typeExpedition' ] ) );
     }
 }

@@ -7,6 +7,8 @@
         $(document).ready(function() {
             const ctx = $("#type-expedition-chart")
 
+            // On crée une fonction pour arrondire des valeurs numériques.
+            // Un fonction réutilisable
             function contractInt(param) {
                 param = 100 * (param / (c2c + aio))
                 if (param) {
@@ -15,25 +17,21 @@
                     return "---"
                 }
             }
-
             // Définition du graphe initial
-            var c2c = {{ $typeExpedition[0]->C2C }}
-            var aio = {{ $typeExpedition[0]->AIO }}
-            // var  = {{ $typeExpedition[0]->TOTAL_SUM - $typeExpedition[0]->AIO - $typeExpedition[0]->C2C }}
-            let data = [c2c, aio, ]
-            let labels = [
-                `C2C : ${contractInt(c2c)}%`,
-                `AIO : ${contractInt(aio)}%`,
-            ]
+            var c2c // Nombre d'expéditions C2C
+            var aio // Nombre d'expéditions AIO
+            let data // Les données inscrites dans le tableaux data [c2c,aio]
+            let labels // Les labels (C2C et AIO)
+
 
             let datasets = [{
                 label: "Expéditions",
                 data: data,
-                backgroundColor: ["yellowgreen", "blue", "purple"],
+                backgroundColor: ["yellowgreen", "skyblue"],
                 pointStyle: false,
                 borderWidth: 0.5
             }, ]
-
+            // Définir le graphique MyChart avec les configurations initiales qui vont avec
             var MyChart = new Chart(ctx, {
                 type: 'pie',
                 data: {
@@ -42,6 +40,8 @@
                 },
             })
 
+            // On crée une fonction pour les mise à jours des données.
+            // Un fonction réutilisable
             function updateCharts(response) {
                 var c2cList = response.map((element) => element.NB_EXPEDITIONS_C2C)
                 var aioList = response.map((element) => element.NB_AIO_EXPEDITIONS)
@@ -52,31 +52,58 @@
                     return accumulator + currentValue
                 }, 0)
 
-                data = [
-                    c2c,
-                    aio,
-                ]
+                data = [c2c, aio]
                 labels = [
                     `C2C : ${contractInt(aio) == 100.00 ? "    0.00" : contractInt(c2c) }%`,
-                    `AIO : ${contractInt(c2c) == 100.00 ? "    0.00" : contractInt(aio) }%`,
+                    `AIO : ${contractInt(c2c) == 100.00 ? "    0.00" : contractInt(aio) }%`
                 ]
                 MyChart.data.labels = labels
                 MyChart.data.datasets[0].data = data
                 MyChart.update()
             }
 
+            // On donne par defaut un interval de date dans lequel on va afficher les données dans les grapqhes
+            // Pour notre on décide de prendre pour intervall la semaine courante
+            var start = moment().startOf('week')
+            var end = moment().endOf('week')
+
+            // Pour une meilleur expérience Ajax reste l'une des méthodes d'extraction et d'interaction entre les requetts et le servers
+            // On affiche les premières valeurs
+            $.ajax({
+                type: "GET",
+                url: "{{ route('dashboard') }}",
+                data: {
+                    'start': start.format('YYYY-MM-DD'),
+                    'end': end.format('YYYY-MM-DD')
+                },
+                success: function(response) {
+                    updateCharts(response)
+                },
+            });
+
+
+            // Ici se trouve un évènement qui capture la selection des intervalles
+            // *** La semaine courante
+            // *** La dernière semaine
+            // *** Le mois courant
+            // *** Le mois passé
+            // *** Un intervall personnalisé
+            // *** Etc.
             $("#date-range-select").change(async function() {
                 let rangeType = $(this).val()
-                var start = moment().startOf('week')
-                var end = moment().endOf('week')
+
+                // Les conditions ici sont
+                // - Si on choisi autre type d'intervalle qu'un intervalle personnalisé alors tous les autres paramètres sur les dates sont vérouillés
+                // et on affaiche les graphes comme l'intervalle le laisse voir
+                // - Dans le cas contraire si on choisi un intervalle personnalisé,
+                // on déverouille les paramètres sur les dates et on laisse le libre choix à l'utilisateur d'introduire les dates comme il le veut
+
                 if (rangeType == 'custom-range') {
                     document.getElementById("start-date").disabled = false
                     document.getElementById("end-date").disabled = false
-                    document.getElementById("reset-date-range").disabled = false
                 } else {
                     document.getElementById("start-date").disabled = true
                     document.getElementById("end-date").disabled = true
-                    document.getElementById("reset-date-range").disabled = true
                     switch (rangeType) {
                         case "this-week":
                             start = moment().startOf('week')
@@ -117,32 +144,17 @@
                 }
             })
 
-
-            // Capturer le changement des dates de départ et de fin dans l'interval
+            // Dans le cas ou le type d'intervalle choisi par l'utilisateur est un de type personnalisé
+            // Capturer les changements des dates de départ et de fin dans l'interval et on exécute la requete ajax
             $('#end-date, #start-date').change(function() {
-                const end = $('#end-date').val()
-                const start = $('#start-date').val()
+                start = $('#start-date').val()
+                end = $('#end-date').val()
                 $.ajax({
                     type: "GET",
                     url: "{{ route('dashboard') }}",
                     data: {
                         'start': start,
                         'end': end
-                    },
-                    success: function(response) {
-                        updateCharts(response)
-                    },
-                });
-            })
-
-            // Réinitialiser l'intervalle  de visualisation des graphes
-            $('#reset-date-range').on('click', function() {
-                $.ajax({
-                    type: "GET",
-                    url: "{{ route('dashboard') }}",
-                    data: {
-                        'start': `{{ $min }}`,
-                        'end': `{{ $max }}`
                     },
                     success: function(response) {
                         updateCharts(response)

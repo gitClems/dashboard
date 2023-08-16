@@ -35,7 +35,7 @@
         .chart-type-expedition-container {
             width: 30vh;
             box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.347);
-            margin: 15px;
+            /* margin: 15px; */
             border-radius: 15px;
         }
 
@@ -51,7 +51,7 @@
     <x-app_bar min="{{ $min }}" max="{{ $max }}"></x-app_bar>
     <main style="width: 100%; display : flex; justify-content:space-around; margin-top:60px">
         <div class="top-header">
-            @component('components.expedition_vue_globale', ['min' => $min, 'max' => $max, 'result' => $result])
+            @component('components.expedition_vue_globale', ['min' => $min, 'max' => $max])
             @endcomponent
 
             @component('components.affaire', ['min' => $min, 'max' => $max, 'result' => $result])
