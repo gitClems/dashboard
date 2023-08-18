@@ -17,7 +17,7 @@
 
 <body>
     <h5>
-        <a href="{{ route('dashboard') }}">Go to the dashboard</a>
+        <a href="{{ route('dashboard') }}" target="_blank">Go to the dashboard</a>
     </h5>
 </body>
 

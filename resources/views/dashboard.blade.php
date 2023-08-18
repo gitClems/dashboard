@@ -51,18 +51,14 @@
 
 <body>
     <x-app_bar min="{{ $min }}" max="{{ $max }}"></x-app_bar>
-    <main style="width: 100%; display : flex; justify-content:space-around; margin-top:60px">
+    <main style="width: 100%; display : flex; justify-content:space-around; margin-top:100px;">
         <div class="top-level">
-            @component('components.expedition_vue_globale')
-            @endcomponent
-            @component('components.affaire')
-            @endcomponent
+            @component('components.expedition_vue_globale')@endcomponent
+            @component('components.affaire')@endcomponent
         </div>
         <div style="display: flex; justify-content : space-evenly ; margin-top : 50px">
-            @component('components.type_expedition')
-            @endcomponent
-            @component('components.achat_packs')
-            @endcomponent
+            @component('components.type_expedition')@endcomponent
+            @component('components.achat_packs')@endcomponent
         </div>
     </main>
 </body>

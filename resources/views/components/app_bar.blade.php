@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-dark fixed-top" style="height: 70px">
+<nav class="navbar navbar-dark bg-dark fixed-top" style="height: 60px">
     <div class="container-fluid" style=" height : 100%">
         <div class="navbar-brand">Express relai</div>
         <div style=" height : 100%">
