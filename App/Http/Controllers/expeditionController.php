@@ -12,9 +12,6 @@ class expeditionController extends Controller {
             "SELECT *
                 from kpi_test "
         );
-        $typeExpedition = DB::select(
-            'SELECT SUM(NB_EXPEDITIONS_C2C) as C2C, SUM(NB_AIO_EXPEDITIONS) as AIO, SUM(NB_EXPEDITIONS) as TOTAL_SUM from kpi_test '
-        );
 
         if ( $request->ajax() ) {
             try {
@@ -24,12 +21,10 @@ class expeditionController extends Controller {
                     "SELECT *
                     from kpi_test 
                     where DATE_REPORT between ? and ? 
-                ",
-                    [ $start, $end ]
+                ", [ $start, $end ]
                 );
                 return  response()->json( $result );
             } catch ( \Throwable $th ) {
-                //throw $th;
             }
         }
 
@@ -43,7 +38,6 @@ class expeditionController extends Controller {
         );
         $min = $monMin[ 0 ]->myMin;
         $max = $monMax[ 0 ]->myMax;
-
-        return view( 'dashboard', compact( [ 'result', 'min', 'max', 'typeExpedition' ] ) );
+        return view( 'dashboard', compact( [ 'result', 'min', 'max' ] ) );
     }
 }

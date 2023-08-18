@@ -14,17 +14,22 @@
             margin: 0;
             padding: 0;
             width: 100%;
-            font-weight: 100;
         }
 
         .chart-container {
             box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.347);
             padding: 15px;
             border-radius: 15px;
+            position: relative; 
+            /* height:40vh;  */
+            /* width:80vw */
         }
 
         .top-chart {
-            width: 500px;
+            width:500px;
+            /* height:40vh; */
+            min-width: 400px;
+            max-width: 600px;
         }
 
         .top-level {
@@ -48,26 +53,15 @@
     <x-app_bar min="{{ $min }}" max="{{ $max }}"></x-app_bar>
     <main style="width: 100%; display : flex; justify-content:space-around; margin-top:60px">
         <div class="top-level">
-            @component('components.expedition_vue_globale', ['min' => $min, 'max' => $max])
+            @component('components.expedition_vue_globale')
             @endcomponent
-
-            @component('components.affaire', ['min' => $min, 'max' => $max, 'result' => $result])
+            @component('components.affaire')
             @endcomponent
         </div>
         <div style="display: flex; justify-content : space-evenly ; margin-top : 50px">
-            @component('components.type_expedition', [
-                'min' => $min,
-                'max' => $max,
-                'typeExpedition' => $typeExpedition,
-                'result' => $result,
-            ])
+            @component('components.type_expedition')
             @endcomponent
-            @component('components.achat_packs', [
-                'min' => $min,
-                'max' => $max,
-                'typeExpedition' => $typeExpedition,
-                'result' => $result,
-            ])
+            @component('components.achat_packs')
             @endcomponent
         </div>
     </main>
