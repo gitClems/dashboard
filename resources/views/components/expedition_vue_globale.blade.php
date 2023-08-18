@@ -21,7 +21,7 @@
             let data
             let labels
             let options = {
-                responsive: true
+                // responsive: true
             }
 
             let datasets = [{
@@ -76,13 +76,13 @@
             // *** Le mois passé
             // *** Un intervall personnalisé
             // *** Etc.
-            $("#date-range-select, #end-date, #start-date").change(async function() {
+            $("#date-range-select, #end-date, #start-date").change( function() {
                 $.ajax({
                     type: "GET",
                     url: "{{ route('dashboard') }}",
                     data: {
                         'start': $('#start-date').val(),
-                        'end': $('#end-date').val(),
+                        'end': $('#end-date').val()
                     },
                     success: function(response) {
                         updateCharts(response)
