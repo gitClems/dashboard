@@ -1,10 +1,12 @@
-<div class="chart-container">
+<div class="top-chart-chart-container">
     <canvas id="expedition-global-chart" class="top-chart expedition-global-chart"></canvas>
-    <div style="display: flex; justify-content : space-between">
+    <div class="top-chart-setting">
         <div>
             <label for="type-line">Courbe</label>
             <input type="radio" class="expedition-global-chart-type" name="expedition-global-chart-type" id="type-line"
                 value='line' checked>
+        </div>
+        <div>
             <label for="type-bar">Histogramme</label>
             <input type="radio" class="expedition-global-chart-type" name="expedition-global-chart-type"
                 id="type-bar" value='bar'>
@@ -27,7 +29,7 @@
             let datasets = [{
                 label: "Nombre d'expéditions",
                 data: data,
-                backgroundColor: "rgb(206, 206, 50,1)",
+                backgroundColor: "rgb(206, 206, 50,0.5)",
                 borderColor: "rgb(206, 206, 50,1)",
                 borderWidth: 2,
                 pointStyleWidth: 1
@@ -76,7 +78,7 @@
             // *** Le mois passé
             // *** Un intervall personnalisé
             // *** Etc.
-            $("#default-date-range-select, #end-date, #start-date").change( function() {
+            $("#default-date-range-select, #end-date, #start-date").change(function() {
                 $.ajax({
                     type: "GET",
                     url: "{{ route('dashboard') }}",

@@ -16,33 +16,35 @@
             width: 100%;
         }
 
-        .chart-container {
-            box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.347);
-            padding: 15px;
-            border-radius: 15px;
-            position: relative;
-            /* height:40vh;  */
-            /* width:80vw */
-        }
-
-        .top-chart {
-            width: 630px;
-            /* height:40vh; */
-            min-width: 40vh;
-            max-width: 700px;
+        .top-chart-setting {
+            display: flex;
+            justify-content: space-evenly
         }
 
         .top-level {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-evenly;
-            margin-top: 10px
+            margin-top: 10px;
+            width: 100%
         }
 
-        main {
-            display: flex;
-            flex-direction: column;
+        .top-chart {
+            /* width: 630px; */
+            width: 100%;
+            /* height:40vh; */
+            /* min-width: 400px;
+            max-width: 700px; */
         }
+
+        .top-chart-chart-container{
+            box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.347);
+            width:49vw;
+            border-radius: 15px;
+            min-width: 400px;
+            max-width: 700px;
+        }
+
 
         .middle-chart {
             width: 30vh;
@@ -51,6 +53,7 @@
         .dashboard-main-container {
             width: 100%;
             display: flex;
+            flex-direction: column;
             justify-content: space-around;
             margin-top: 65px;
             transition: 200ms;
@@ -68,7 +71,7 @@
             @component('components.affaire')
             @endcomponent
         </div>
-        <div style="display: flex; justify-content : space-evenly ; margin-top : 50px">
+        <div style="display: flex; justify-content : space-evenly ; margin-top : 10px">
             @component('components.type_expedition')
             @endcomponent
             @component('components.achat_packs')

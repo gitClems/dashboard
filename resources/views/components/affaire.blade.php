@@ -1,12 +1,19 @@
-<div class="chart-container">
+<div class="top-chart-chart-container">
     <canvas id="chiffre-affaire-global-chart" class="top-chart chiffre-affaire-global-chart"></canvas>
-    <div>
-        <label for="type-line">Courbe</label>
-        <input type="radio" class="chiffre-affaire-global-chart-type" name="chiffre-affaire-global-chart-type"
-            id="type-line" value='line' checked>
-        <label for="type-bar">Histogramme</label>
-        <input type="radio" class="chiffre-affaire-global-chart-type" name="chiffre-affaire-global-chart-type"
-            id="type-bar" value='bar'>
+    <div class="top-chart-setting">
+        <div>
+
+            <label for="type-line">Courbe</label>
+            <input type="radio" class="chiffre-affaire-global-chart-type" name="chiffre-affaire-global-chart-type"
+                id="type-line" value='line' checked>
+        </div>
+
+        <div>
+
+            <label for="type-bar">Histogramme</label>
+            <input type="radio" class="chiffre-affaire-global-chart-type" name="chiffre-affaire-global-chart-type"
+                id="type-bar" value='bar'>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -20,13 +27,14 @@
             let labels
             let options = {
                 // responsive: true
+
             }
 
             let datasets = [{
                 label: "Chiffre d'affaire",
                 data: data,
-                backgroundColor: "skyblue",
-                borderColor: "skyblue",
+                backgroundColor: "rgba(255, 166, 0, 0.502)",
+                borderColor: "rgba(255, 166, 0, 1)",
                 borderWidth: 2
             }, ]
 
@@ -36,7 +44,7 @@
                     labels: labels,
                     datasets: datasets
                 },
-                options : options
+                options: options
             })
 
             function updateCharts(response) {
@@ -74,7 +82,7 @@
             // *** Le mois passé
             // *** Un intervall personnalisé
             // *** Etc.
-            $("#default-date-range-select, #end-date, #start-date").change( function() {
+            $("#default-date-range-select, #end-date, #start-date").change(function() {
                 $.ajax({
                     type: "GET",
                     url: "{{ route('dashboard') }}",
@@ -106,3 +114,8 @@
         })
     </script>
 </div>
+{{-- <style>
+    div {
+        color: rgba(0, 128, 0, 0.5)
+    }
+</style> --}}

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\expeditionController;
+use App\Http\Controllers\testController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,5 @@ use App\Http\Controllers\expeditionController;
 
 Route::get('/', function () {return view('index');})->name("index");
 Route::get('/dashboard',[expeditionController::class,'display'])->name("dashboard");
-Route::get('dashboard/daterange', function () {return view('components.client');})->name('daterange');
+Route::get('/accueil',[testController::class,'display'])->name("accueil");
+// Route::get('dashboard/daterange', function () {return view('components.client');})->name('daterange');

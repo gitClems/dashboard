@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
-class expeditionController extends Controller {
+class testController extends Controller {
     function display ( Request $request ) {
 
         $result = DB::select(
@@ -38,6 +38,6 @@ class expeditionController extends Controller {
         );
         $min = $monMin[ 0 ]->myMin;
         $max = $monMax[ 0 ]->myMax;
-        return view( 'dashboard', compact( [ 'result', 'min', 'max' ] ) );
+        return view( 'accueil', compact( [ 'result', 'min', 'max' ] ) );
     }
 }

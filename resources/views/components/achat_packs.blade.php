@@ -18,7 +18,7 @@
             const ctx = $("#chart-achat-packs-expedition")
             let datasets = [{
                 data: data,
-                backgroundColor: ["yellowgreen", "purple"],
+                backgroundColor: ["yellowgreen", "rgba(0, 128, 0, 0.5)"],
                 borderWidth: 0.1,
             }, ]
 
