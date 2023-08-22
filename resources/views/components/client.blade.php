@@ -1,11 +1,12 @@
-<h1 class="chart-container">
+{{-- <h1 class="chart-container">
     <x-packages></x-packages>
     L'action des clients
-</h1>
+</h1> --}}
 
 <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
     <i class="fa fa-calendar"></i>&nbsp;
     <span></span> <i class="fa fa-caret-down"></i>
+    <input type="date" name="" id="">
 </div>
 
 <script type="text/javascript">

@@ -26,7 +26,6 @@
                 // responsive: true
             }
 
-
             let datasets = [{
                 label: "Expéditions",
                 data: data,
@@ -34,6 +33,7 @@
                 pointStyle: false,
                 borderWidth: 0.1
             }, ]
+            
             // Définir le graphique MyChart avec les configurations initiales qui vont avec
             var MyChart = new Chart(ctx, {
                 type: 'pie',
@@ -87,7 +87,7 @@
             // *** Le mois passé
             // *** Un intervall personnalisé
             // *** Etc.
-            $("#date-range-select, #end-date, #start-date").change(function() {
+            $("#default-date-range-select, #end-date, #start-date").change(function() {
                 $.ajax({
                     type: "GET",
                     url: "{{ route('dashboard') }}",

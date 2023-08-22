@@ -1,25 +1,18 @@
-<nav class="navbar navbar-dark bg-dark fixed-top" style="height: fit-content; ">
+<nav class="navbar navbar-dark bg-dark fixed-top" style="height: max-height">
     <div class="container-fluid" style=" height : 100%">
         <div class="navbar-brand">Express relai</div>
-        <div style=" height : 100%;  ">
-            <div style="display: flex;">
-                <select name="" id="default-date-range-select">
-                    <option value="this-week">Semaine courante</option>
-                    <option value="last-week">Semaine passée</option>
-                    <option value="this-month">Mois courant</option>
-                    <option value="last-month">Mois passé</option>
-                    <option value="custom-range">Personnalisé</option>
-                </select>
-                <div>
-                    <input type="date" id="start-date" min="{{ $min }}" max="{{ $max }}"
-                        @disabled(true)>
-                    <input type="date" id="end-date" max="{{ $max }}" min="{{ $min }}"
-                        @disabled(true)>
-                </div>
-            </div>
-
-            <div style="display: flex; justify-content : center">
-                <span id="error-append" style='font-size : 10px ;'></span>
+        <div style=" height : 100%">
+            <select name="" id="default-date-range-select">
+                <option value="this-week">Semaine courante</option>
+                <option value="last-week">Semaine passée</option>
+                <option value="this-month">Mois courant</option>
+                <option value="last-month">Mois passé</option>
+                <option value="custom-range">Personnalisé</option>
+            </select>
+            <input type="date" name="end" id="start-date" min="{{ $min }}" @disabled(true)>
+            <input type="date" name="start" id="end-date" max="{{ $max }}" @disabled(true)>
+            <div>
+                <span id="error-append" style='font-size : 10px'></span>
             </div>
         </div>
 
@@ -54,22 +47,22 @@
     #start-date,
     #end-date {
         width: 110px;
-        /* border-radius: 5px */
+        border-radius: 5px;
     }
 
     #error-append {
         font-size: 8px;
-        color: red;
+        color: orange;
         font-weight: bold;
     }
 </style>
 <script>
     // On donne par defaut un interval de date dans lequel on va afficher les données dans les grapqhes
     // Pour notre cas on décide de prendre pour intervall la semaine courante
-    var start = moment().startOf('week')
-    var end = moment().endOf('week')
-    $("#start-date").val(start.format('YYYY-MM-DD'))
-    $("#end-date").val(end.format('YYYY-MM-DD'))
+    var start = moment().startOf('week').format('YYYY-MM-DD')
+    var end = moment().endOf('week').format('YYYY-MM-DD')
+    $("#start-date").val(start)
+    $("#end-date").val(end)
 
     // Function pour afficher l'état des données apres la requete.
     // S'il y a aucune donnée, il n'y a aucun contenu dans les affichages
@@ -78,16 +71,14 @@
         error = document.getElementById("error-append")
         if (response.length > 0) {
             error.innerHTML = ``
-            $('.dashboard-main-container').css('margin-top', 60);
         } else {
-            $('.dashboard-main-container').css('margin-top', 70);
             error.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
                 class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
                 <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 
                 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 
                 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                 </svg>
-                Aucune donnée disponible à ces dates ou intervalle erroné !`
+                Aucune donnée disponible ou intervalle erroné !`
         }
     }
 
@@ -96,8 +87,8 @@
         type: "GET",
         url: "{{ route('dashboard') }}",
         data: {
-            'start': start.format('YYYY-MM-DD'),
-            'end': end.format('YYYY-MM-DD')
+            'start': start,
+            'end': end
         },
         success: function(response) {
             displayError(response)
@@ -110,13 +101,15 @@
 
         // Les conditions ici sont
         // - Si on choisi autre type d'intervalle qu'un intervalle personnalisé alors tous les autres paramètres sur les dates sont vérouillés
-        // et on affiche les graphes comme l'intervalle le laisse voir
-        // - Dans le cas contraire ( si on choisi un intervalle personnalisé ),
+        // et on affaiche les graphes comme l'intervalle le laisse voir
+        // - Dans le cas contraire si on choisi un intervalle personnalisé,
         // on déverouille les paramètres sur les dates et on laisse le libre choix à l'utilisateur d'introduire les dates comme il le veut
 
         if (rangeType == 'custom-range') {
             document.getElementById("start-date").disabled = false
             document.getElementById("end-date").disabled = false
+            start = $('#start-date').val()
+            end = $('#end-date').val()
         } else {
             document.getElementById("start-date").disabled = true
             document.getElementById("end-date").disabled = true
@@ -140,19 +133,24 @@
                 default:
                     break
             }
-            $('#start-date').val(start.format("YYYY-MM-DD"))
-            $('#end-date').val(end.format("YYYY-MM-DD"))
+            start = start.format("YYYY-MM-DD")
+            end = end.format("YYYY-MM-DD")
         }
+        $('#start-date').val(start)
+        $('#end-date').val(end)
         $.ajax({
             type: "GET",
             url: "{{ route('dashboard') }}",
             data: {
-                'start': start.format('YYYY-MM-DD'),
-                'end': end.format('YYYY-MM-DD'),
+                'start': start,
+                'end': end,
             },
             success: function(response) {
                 displayError(response)
             },
+            error: function(error) {
+                alert("Oups ! Something went wrong")
+            }
         });
     })
 </script>

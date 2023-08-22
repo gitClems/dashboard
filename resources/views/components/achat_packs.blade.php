@@ -15,17 +15,16 @@
                 // responsive: true
             }
 
-
             const ctx = $("#chart-achat-packs-expedition")
             let datasets = [{
-                label: "Expéditions",
                 data: data,
                 backgroundColor: ["yellowgreen", "purple"],
                 borderWidth: 0.1,
             }, ]
+
             // Définir le graphique MyChart avec les configurations initiales qui vont avec
             var MyChart = new Chart(ctx, {
-                type: 'doughnut',
+                type: 'pie',
                 data: {
                     labels: labels,
                     datasets: datasets
@@ -79,14 +78,14 @@
                 },
             });
 
-            // Ici se trouve un évènement qui capture la selection des intervalles
+            // Ici se trouve les évènement de mis à jour avec la selection des intervalles
             // *** La semaine courante
             // *** La dernière semaine
             // *** Le mois courant
             // *** Le mois passé
             // *** Un intervall personnalisé
             // *** Etc.
-            $("#date-range-select, #end-date, #start-date").change( function() {
+            $("#default-date-range-select, #end-date, #start-date").change( function() {
                 $.ajax({
                     type: "GET",
                     url: "{{ route('dashboard') }}",

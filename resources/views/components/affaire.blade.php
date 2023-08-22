@@ -74,7 +74,7 @@
             // *** Le mois passé
             // *** Un intervall personnalisé
             // *** Etc.
-            $("#date-range-select, #end-date, #start-date").change( function() {
+            $("#default-date-range-select, #end-date, #start-date").change( function() {
                 $.ajax({
                     type: "GET",
                     url: "{{ route('dashboard') }}",
