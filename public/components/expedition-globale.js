@@ -1,30 +1,22 @@
-async function expeditionGlobalChart() {
 
-    const ctx = $("#expedition-global-chart")
-    let data
-    let labels
+import { end, start } from "./main.js"
 
-    let datasets
-
-    // console.log($('#start-date').val());
-    // console.log($('#end-date').val());
-
-    var MyChart
-
+const ctx = $("#expedition-global-chart")
+var data
+var labels
+var datasets
+var MyChart
+$(function () {
     $.ajax({
         type: "GET",
         url: "accueil",
         data: {
-            'start': $('#start-date').val(),
-            'end': $('#end-date').val()
+            'start': start.format("YYYY-MM-DD"),
+            'end': end.format("YYYY-MM-DD")
         },
         success: function (response) {
-
             data = response.map((element) => element.NB_EXPEDITIONS)
             labels = response.map((element) => moment(element.DATE_REPORT).format('DD/MM/YY'))
-
-            console.log(data);
-            console.log(labels);
             datasets = [{
                 label: "Nombre d'expéditions",
                 data: data,
@@ -42,6 +34,9 @@ async function expeditionGlobalChart() {
             })
         },
     });
+})
+
+async function expeditionGlobalChart(start, end) {
 
     function updateCharts(response, MyChart) {
         data = response.map((element) => element.NB_EXPEDITIONS)
@@ -56,26 +51,17 @@ async function expeditionGlobalChart() {
         MyChart.update()
     }
 
-    $("#default-date-range-select, #end-date, #start-date").change(function () {
-        console.log("Ajax");
-        $.ajax({
-            type: "GET",
-            url: "accueil",
-            data: {
-                'start': $('#start-date').val(),
-                'end': $('#end-date').val()
-            },
-            success: function (response) {
-                updateCharts(response, MyChart)
-                console.log(data);
-                console.log(labels);
-            },
-            error: function (error) {
-                alert("Oups ! Something went wrong")
-            }
-        });
-    })
-
+    $.ajax({
+        type: "GET",
+        url: "accueil",
+        data: {
+            'start': start.format("YYYY-MM-DD"),
+            'end': end.format("YYYY-MM-DD")
+        },
+        success: function (response) {
+            updateCharts(response, MyChart)
+        },
+    });
 
     $('.expedition-global-chart-type').change(function () {
         MyChart.destroy()
@@ -89,5 +75,4 @@ async function expeditionGlobalChart() {
     })
 }
 
-
-export default  expeditionGlobalChart
+export default expeditionGlobalChart

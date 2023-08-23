@@ -44,8 +44,7 @@
                         <a class="nav-link active" aria-current="page" href="{{ route('dashboard') }}">Expédition</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#client">Client</a>
-                    </li>
+                        <a class="nav-link active" aria-current="page" href="{{ route('accueil') }}">Accueil</a>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#chiffre">Chiffre d'affaire</a>
                     </li>
