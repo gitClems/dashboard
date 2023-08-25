@@ -6,7 +6,7 @@ var data
 var labels
 var datasets
 var MyChart
-$(function () {
+$(document).ready(function () {
     $.ajax({
         type: "GET",
         url: "accueil",

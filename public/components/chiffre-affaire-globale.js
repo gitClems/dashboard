@@ -32,7 +32,7 @@ $(function () {
             data = response.map((element) => element.CHIFFRE_AFFAIRE)
             labels = response.map((element) => moment(element.DATE_REPORT).format('DD/MM/YY'))
             datasets = [{
-                label: "Nombre d'expéditions",
+                label: "Chiffre d'affaire",
                 data: data,
                 backgroundColor: "rgba(255, 166, 0, 0.502)",
                 borderColor: "rgba(255, 166, 0, 1)",

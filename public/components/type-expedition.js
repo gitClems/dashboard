@@ -38,7 +38,7 @@ function contractInt(param) {
 }
 
 
-$(function () {
+$(document).ready(function () {
     $.ajax({
         type: "GET",
         url: "accueil",
@@ -57,7 +57,6 @@ $(function () {
             }, 0)
 
             data = [c2c, aio]
-            console.log(data);
             labels = [
                 `C2C : ${contractInt(aio) == 100.00 ? "    0.00" : contractInt(c2c)}%`,
                 `AIO : ${contractInt(c2c) == 100.00 ? "    0.00" : contractInt(aio)}%`

@@ -1,10 +1,10 @@
 <nav class="navbar navbar-dark bg-dark fixed-top" style="height: max-height;">
     <div class="container-fluid" style=" height : 100%">
-        <div class="navbar-brand">Express relai</div>
+        <div class="navbar-brand">Express relais</div>
         <x-packages></x-packages>
         <div style=" height : 100%">
-            <div style="width: 300px">
-                <div id="reportrange">
+            <div style="width: 300px ; display : flex">
+                <div id="reportrange" >
                     <span style="width : 90% ; display: flex; justify-content: center;"></span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-calendar3" viewBox="0 0 16 16" >
@@ -19,6 +19,9 @@
             <div id="error-append-container" style="display: flex; justify-content : center; background-color : rgba(255, 255, 255, 0.2); border-radius : 3px; height : max-content ">
                 <span id="error-append" ></span>
             </div>
+            {{-- <div class="spinner-border" role="status" style="color: white;">
+                <span class="visually-hidden">Loading...</span>
+              </div> --}}
         </div>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
@@ -28,7 +31,7 @@
         <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
             aria-labelledby="offcanvasDarkNavbarLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Express relai</h5>
+                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Express relais</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
             </div>

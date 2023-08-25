@@ -38,7 +38,7 @@ function contractInt(param) {
 }
 
 
-$(function () {
+$(document).ready(function () {
     $.ajax({
         type: "GET",
         url: "accueil",
@@ -57,7 +57,6 @@ $(function () {
             }, 0)
 
             data = [nbNvInscrit, nbNvClient]
-            console.log(data);
             labels = [
                 `Nouveaux inscrits : ${contractInt(nbNvClient) == 100.00 ? "    0.00" : contractInt(nbNvInscrit)}%`,
                 `Nouveaux clients : ${contractInt(nbNvInscrit) == 100.00 ? "    0.00" : contractInt(nbNvClient)}%`

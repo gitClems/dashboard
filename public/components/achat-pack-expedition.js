@@ -38,7 +38,7 @@ function contractInt(param) {
 }
 
 
-$(function () {
+$(document).ready(function () {
     $.ajax({
         type: "GET",
         url: "accueil",
@@ -56,7 +56,6 @@ $(function () {
                 return accumulator + currentValue
             }, 0)
             data = [pack, oneShot]
-            console.log(data);
             labels = [
                 `Pack     : ${contractInt(oneShot) == 100.00 ? "    0.00" : contractInt(pack)}%`,
                 `One Shot : ${contractInt(pack) == 100.00 ? "    0.00" : contractInt(oneShot)}%`

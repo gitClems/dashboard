@@ -4,11 +4,12 @@ import typeExpeditionGlobalChart from "./type-expedition.js";
 import achatPacksGlobalChart from "./achat-pack-expedition.js";
 import getError from "./error.js";
 import convertionClient from "./convertion-client.js";
-
 export var start = moment().startOf('week')
 export var end = moment().endOf('week');
 
 $(function () {
+    console.log(start.format("YYYY-MM-DD"));
+    console.log(end.format("YYYY-MM-DD"));
     function cb(start, end) {
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         getError(start, end)
@@ -17,7 +18,6 @@ $(function () {
         typeExpeditionGlobalChart(start, end)
         achatPacksGlobalChart(start, end)
         convertionClient(start,end)
-
     }
 
     $('#reportrange').daterangepicker({
