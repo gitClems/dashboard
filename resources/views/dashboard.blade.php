@@ -24,10 +24,14 @@
         .top-chart-chart-container {
             /* box-shadow: 1px 1px 1px rgba(128, 128, 128, 0.347); */
             background-color: white;
-            width: 49.50%;
             border-radius: 5px;
+            width: 49.50%;
             min-width: 400px;
             max-width: 700px;
+        }
+
+        .top-chart : {
+            width: 100%;
         }
 
         .middle-chart-container {
@@ -105,8 +109,8 @@
 
     <main class="dashboard-main-container">
         <div class="top-level">
-            @component('components.expedition_vue_globale')
-            @endcomponent
+            {{-- @component('components.expedition_vue_globale')
+            @endcomponent --}}
             @component('components.affaire')
             @endcomponent
         </div>

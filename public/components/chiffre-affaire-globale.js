@@ -63,17 +63,6 @@ async function chiffreAffaireGlobalChart(start, end) {
         },
     });
 
-
-    $('.chiffre-affaire-global-chart-type').change(function () {
-        MyChart.destroy()
-        MyChart = new Chart(ctx, {
-            type: $(this).val(),
-            data: {
-                labels: labels,
-                datasets: datasets
-            },
-        })
-    })
 }
 
 export default chiffreAffaireGlobalChart

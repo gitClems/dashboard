@@ -21,10 +21,12 @@
 body {
     position: relative;
     margin: var(--header-height) 0 0 0;
-    /* padding: 0 1rem; */
+    padding: 0 1rem;
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
     transition: .5s;
+    /* background-color: rgba(128, 128, 128, 0.2); */
+    background-color: rgba(0, 0, 255, 0.10);
 }
 
 a {
@@ -40,7 +42,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* padding: 0 1rem; */
+    padding: 0 1rem;
     /* background-color: var(--white-color); */
     z-index: var(--z-fixed);
     transition: .5s
@@ -73,7 +75,7 @@ a {
     height: 100vh;
     background-color: var(--first-color);
     /* background-color: #d80d1f; */
-    /* padding: .5rem 1rem 0 0; */
+    padding: .5rem 1rem 0 0;
     transition: .5s;
     z-index: var(--z-fixed)
 }

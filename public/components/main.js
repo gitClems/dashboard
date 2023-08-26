@@ -12,7 +12,7 @@ $(function () {
     console.log(end.format("YYYY-MM-DD"));
     function cb(start, end) {
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        getError(start, end)
+        // getError(start, end)
         expeditionGlobalChart(start, end)
         chiffreAffaireGlobalChart(start, end)
         typeExpeditionGlobalChart(start, end)
