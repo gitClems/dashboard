@@ -1,5 +1,5 @@
 
-import { end, start } from "./main.js"
+import { end, start } from "./main1.js"
 
 const ctx = $("#chiffre-affaire-global-chart")
 var data
@@ -25,8 +25,8 @@ $(function () {
         type: "GET",
         url: "accueil",
         data: {
-            'start': start.format("YYYY-MM-DD"),
-            'end': end.format("YYYY-MM-DD")
+            'start': start.toISOString(),
+            'end': end.toISOString()
         },
         success: function (response) {
             data = response.map((element) => element.CHIFFRE_AFFAIRE)
@@ -55,8 +55,8 @@ async function chiffreAffaireGlobalChart(start, end) {
         type: "GET",
         url: "accueil",
         data: {
-            'start': start.format("YYYY-MM-DD"),
-            'end': end.format("YYYY-MM-DD")
+            'start': start.toISOString(),
+            'end': end.toISOString()
         },
         success: function (response) {
             updateCharts(response, MyChart)

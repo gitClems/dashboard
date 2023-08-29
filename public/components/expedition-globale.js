@@ -1,5 +1,5 @@
 
-import { end, start } from "./main.js"
+import { end, start } from "./main1.js"
 
 const ctx = $("#expedition-global-chart")
 var expeditionData
@@ -47,18 +47,29 @@ var options = {
     },
 }
 
+function sum(param) {
+    var sum = 0
+    param.forEach(element => {
+        sum += parseInt(element)
+    });
+    return sum
+}
 $(document).ready(function () {
     $.ajax({
         type: "GET",
         url: "accueil",
         data: {
-            'start': start.format("YYYY-MM-DD"),
-            'end': end.format("YYYY-MM-DD")
+            'start': start.toISOString(),
+            'end': end.toISOString()
         },
         success: function (response) {
             expeditionData = response.map((element) => element.NB_EXPEDITIONS)
             chiffaireAffaireData = response.map((element) => element.CHIFFRE_AFFAIRE)
             labels = response.map((element) => moment(element.DATE_REPORT).format('DD/MM/YY'))
+
+            document.getElementById("nombre-expedition").innerHTML = sum(expeditionData)
+            document.getElementById("chiffre-affaire").innerHTML = sum(chiffaireAffaireData).toFixed(2) + `Dhs`
+
             datasets = [{
                 label: "Nombre d'expéditions",
                 type: 'bar',
@@ -75,7 +86,7 @@ $(document).ready(function () {
             {
                 label: "Chiffre d'affaire",
                 data: chiffaireAffaireData,
-                backgroundColor: "rgba(255, 166, 0, 0.1)",
+                backgroundColor: "rgba(255, 166, 0, 0.3)",
                 borderColor: "rgba(255, 166, 0, 1)",
                 borderWidth: 2,
                 yAxisID: 'chiffreAffaire',
@@ -103,9 +114,8 @@ $(document).ready(function () {
         },
     });
 })
-
 async function expeditionGlobalChart(start, end) {
-
+    // console.log(start.toISOString());
     function updateCharts(response, MyChart) {
         expeditionData = response.map((element) => element.NB_EXPEDITIONS)
         chiffaireAffaireData = response.map((element) => element.CHIFFRE_AFFAIRE)
@@ -119,14 +129,17 @@ async function expeditionGlobalChart(start, end) {
             MyChart.data.datasets[1].pointStyle = true
         }
         MyChart.update()
+
+        document.getElementById("nombre-expedition").innerHTML = sum(expeditionData)
+        document.getElementById("chiffre-affaire").innerHTML = sum(chiffaireAffaireData).toFixed(2) + `Dhs`
     }
 
     $.ajax({
         type: "GET",
         url: "accueil",
         data: {
-            'start': start.format("YYYY-MM-DD"),
-            'end': end.format("YYYY-MM-DD")
+            'start': start.toISOString(),
+            'end': end.toISOString()
         },
         success: function (response) {
             updateCharts(response, MyChart)

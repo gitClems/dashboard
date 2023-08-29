@@ -43,8 +43,8 @@ $(document).ready(function () {
         type: "GET",
         url: "accueil",
         data: {
-            'start': start.format("YYYY-MM-DD"),
-            'end': end.format("YYYY-MM-DD")
+            'start': start.toISOString(),
+            'end': end.toISOString()
         },
         success: function (response) {
             var c2cList = response.map((element) => element.NB_EXPEDITIONS_C2C)
@@ -85,8 +85,8 @@ async function typeExpeditionGlobalChart(start, end) {
         type: "GET",
         url: "accueil",
         data: {
-            'start': start.format("YYYY-MM-DD"),
-            'end': end.format("YYYY-MM-DD")
+            'start': start.toISOString(),
+            'end': end.toISOString()
         },
         success: function (response) {
             updateCharts(response, MyChart)

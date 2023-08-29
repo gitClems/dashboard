@@ -1,4 +1,4 @@
-import { end, start } from "./main.js"
+import { end, start } from "./main1.js"
 
 const ctx = $("#achat-packs-chart")
 var datasets
@@ -43,8 +43,8 @@ $(document).ready(function () {
         type: "GET",
         url: "accueil",
         data: {
-            'start': start.format("YYYY-MM-DD"),
-            'end': end.format("YYYY-MM-DD")
+            'start': start.toISOString(),
+            'end': end.toISOString()
         },
         success: function (response) {
             var packList = response.map((element) => element.NB_ACHATS_PACK)
@@ -85,8 +85,8 @@ async function achatPacksGlobalChart(start, end) {
         type: "GET",
         url: "accueil",
         data: {
-            'start': start.format("YYYY-MM-DD"),
-            'end': end.format("YYYY-MM-DD")
+            'start': start.toISOString(),
+            'end': end.toISOString()
         },
         success: function (response) {
             updateCharts(response, MyChart)
