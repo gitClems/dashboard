@@ -89,7 +89,6 @@ $(document).ready(function () {
                 end = selectedDates.length > 1 ? selectedDates[1] : moment(start).subtract(1, 'day');
                 end.setHours(23, 59, 59);
                 try {
-
                     expeditionGlobalChart(start, end)
                     chiffreAffaireGlobalChart(start, end)
                     typeExpeditionGlobalChart(start, end)

@@ -22,6 +22,12 @@
     width: 50%;
 }
 
+@media screen and (max-width: 375px){
+    .filter-container {
+        width: 290px;;
+    }
+}
+
 .flatpickr-predefined-ranges .nav-link {
     /* font-family: satoshi-bold; */
     font-family: 'Roboto Condensed', sans-serif;

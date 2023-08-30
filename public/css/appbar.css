@@ -1,5 +1,5 @@
 #header {
-    background-color: white;
+    background-color: #3f4458;
     box-shadow: 1px 1px 1px rgba(128, 128, 128, 0.347);
 }
 
@@ -8,7 +8,7 @@
     border: 1px solid grey;
     display: flex;
     justify-content: center;
-    align-items: center
+    align-items: center;
 }
 
 .daterangepicker {
@@ -360,6 +360,21 @@
 .daterangepicker .ranges li.active {
     background-color: #08c;
     color: #fff;
+}
+.dashboard-logo{
+    width: 100%;
+    height: calc(var(--nav-width) + 1rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-image: url("../assets/Logo-1.png");
+}
+@media screen and (max-width: 450px){
+    .dashboard-logo {
+        display: none;
+    }
 }
 
 /*  Larger Screen Styling */

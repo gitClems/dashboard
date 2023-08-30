@@ -21,6 +21,7 @@
 
         .top-chart-chart-container {
             background-color: white;
+            border-radius: 5px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -37,7 +38,10 @@
             border-radius: 5px;
             height: 200px;
             width: 200px;
-            flex: 1
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .dashboard-main-container {
@@ -61,13 +65,14 @@
                 min-width: 100%;
             }
         } */
+
     </style>
 </head>
 
 <body id="body-pd">
     <x-app_bar></x-app_bar>
     <main class="dashboard-main-container">
-        <div id="page-icon">
+        <div class="page-icon">
             <x-page_titre></x-page_titre>
         </div>
         <div class="affichage-chiffree">
@@ -82,6 +87,10 @@
             <x-type_expedition></x-type_expedition>
             <x-achat_packs></x-achat_packs>
             <x-conversion_clientele></x-conversion_clientele>
+        </div>
+
+        <div>
+            <x-up_scroll></x-up_scroll>
         </div>
     </main>
 </body>

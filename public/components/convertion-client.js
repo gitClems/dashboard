@@ -7,6 +7,27 @@ var nbNvClient
 var data
 var labels
 var MyChart
+var jaugeContainer = {
+    id: "jaugeContainer",
+    afterDatasetsDraw(chart, arg, pluginsOptions) {
+        const { ctx, data, chartArea: { top, bottom, left, right, width, height
+        }, scales: { r } } = chart;
+        ctx.save()
+        const xCoor = chart.getDatasetMeta(0).data[0].x
+        const yCoor = chart.getDatasetMeta(0).data[0].y
+        // console.log(xCoor," - ",yCoor);
+        ctx.fillRect(xCoor, yCoor, 400, 5)
+        ctx.fillText('0', left + 2, yCoor + 10)
+    }
+}
+var options = {
+    aspectRatio: 1.5,
+    plugins: {
+        legend: {
+            display: false
+        }
+    },
+}
 
 function updateCharts(response, MyChart) {
     var nbNvInscritList = response.map((element) => element.NB_NEW_INSCRITS)
@@ -18,10 +39,10 @@ function updateCharts(response, MyChart) {
         return accumulator + currentValue
     }, 0)
 
-    data = [nbNvInscrit, nbNvClient]
+    data = [nbNvClient, nbNvInscrit - nbNvClient]
     labels = [
+        `Nouveaux clients : ${contractInt(nbNvInscrit) == 100.00 ? "    0.00" : contractInt(nbNvClient)}%`,
         `Nouveaux inscrits : ${contractInt(nbNvClient) == 100.00 ? "    0.00" : contractInt(nbNvInscrit)}%`,
-        `Nouveaux clients : ${contractInt(nbNvInscrit) == 100.00 ? "    0.00" : contractInt(nbNvClient)}%`
     ]
     MyChart.data.labels = labels
     MyChart.data.datasets[0].data = data
@@ -56,10 +77,10 @@ $(document).ready(function () {
                 return accumulator + currentValue
             }, 0)
 
-            data = [nbNvInscrit, nbNvClient]
+            data = [nbNvClient, nbNvInscrit - nbNvClient]
             labels = [
+                `Nouveaux clients : ${contractInt(nbNvInscrit) == 100.00 ? "    0.00" : contractInt(nbNvClient)}%`,
                 `Nouveaux inscrits : ${contractInt(nbNvClient) == 100.00 ? "    0.00" : contractInt(nbNvInscrit)}%`,
-                `Nouveaux clients : ${contractInt(nbNvInscrit) == 100.00 ? "    0.00" : contractInt(nbNvClient)}%`
             ]
 
             datasets = [{
@@ -67,14 +88,20 @@ $(document).ready(function () {
                 data: data,
                 backgroundColor: ["rgba(255, 166, 0, 0.502)", "skyblue"],
                 borderWidth: 2,
-                pointStyleWidth: 1
+                pointStyleWidth: 1,
+                circumference: 180,
+                rotation: -90,
+                borderWidth: 0,
+                cutout: '90%'
             },]
             MyChart = new Chart(ctx, {
-                type: 'pie',
+                type: 'doughnut',
                 data: {
                     labels: labels,
                     datasets: datasets
                 },
+                options,
+                plugins: [jaugeContainer]
             })
         },
     });

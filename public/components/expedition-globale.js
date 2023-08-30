@@ -47,6 +47,7 @@ var options = {
     },
 }
 
+
 function sum(param) {
     var sum = 0
     param.forEach(element => {
@@ -54,6 +55,30 @@ function sum(param) {
     });
     return sum
 }
+
+function troncature(param) {
+    param = parseInt(param)
+    // console.log(param);
+    if (param >= 1000000000) {
+        param = (param / 1000000000).toFixed(2)
+        return param + 'G'
+    }
+    if (param >= 1000000) {
+        param = (param / 1000000).toFixed(2)
+        return param + 'M'
+    }
+    if (param >= 1000) {
+        param = (param / 1000).toFixed(2)
+        return param + 'K'
+    }
+    if (param < 1000) {
+        return param
+    }
+}
+var testValue = 6842065416
+console.log("---- ", troncature(testValue));
+
+
 $(document).ready(function () {
     $.ajax({
         type: "GET",
@@ -66,9 +91,8 @@ $(document).ready(function () {
             expeditionData = response.map((element) => element.NB_EXPEDITIONS)
             chiffaireAffaireData = response.map((element) => element.CHIFFRE_AFFAIRE)
             labels = response.map((element) => moment(element.DATE_REPORT).format('DD/MM/YY'))
-
-            document.getElementById("nombre-expedition").innerHTML = sum(expeditionData)
-            document.getElementById("chiffre-affaire").innerHTML = sum(chiffaireAffaireData).toFixed(2) + `Dhs`
+            document.getElementById("nombre-expedition").innerHTML = troncature(sum(expeditionData))
+            document.getElementById("chiffre-affaire").innerHTML = troncature(sum(chiffaireAffaireData).toFixed(2)) + `Dhs`
 
             datasets = [{
                 label: "Nombre d'expéditions",
@@ -130,10 +154,10 @@ async function expeditionGlobalChart(start, end) {
         }
         MyChart.update()
 
-        document.getElementById("nombre-expedition").innerHTML = sum(expeditionData)
-        document.getElementById("chiffre-affaire").innerHTML = sum(chiffaireAffaireData).toFixed(2) + `Dhs`
-    }
+        document.getElementById("nombre-expedition").innerHTML = troncature(sum(expeditionData))
+        document.getElementById("chiffre-affaire").innerHTML = troncature(sum(chiffaireAffaireData).toFixed(2)) + `Dhs`
 
+    }
     $.ajax({
         type: "GET",
         url: "accueil",
