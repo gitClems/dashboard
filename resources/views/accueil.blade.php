@@ -65,7 +65,6 @@
                 min-width: 100%;
             }
         } */
-
     </style>
 </head>
 
@@ -75,7 +74,7 @@
         <div class="page-icon">
             <x-page_titre></x-page_titre>
         </div>
-        <div class="affichage-chiffree">
+        <div class="screen-chiffre">
             <x-affichage_chiffre></x-affichage_chiffre>
         </div>
         <div class="top-level">

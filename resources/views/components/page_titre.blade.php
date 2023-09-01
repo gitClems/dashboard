@@ -15,7 +15,6 @@
 
 <style>
     .page-title {
-        /* font-size: 30px; */
         font-size: 2em;
     }
 

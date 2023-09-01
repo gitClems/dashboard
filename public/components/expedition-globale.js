@@ -1,4 +1,3 @@
-
 import { end, start } from "./main1.js"
 
 const ctx = $("#expedition-global-chart")
@@ -58,7 +57,6 @@ function sum(param) {
 
 function troncature(param) {
     param = parseInt(param)
-    // console.log(param);
     if (param >= 1000000000) {
         param = (param / 1000000000).toFixed(2)
         return param + 'G'
@@ -75,10 +73,23 @@ function troncature(param) {
         return param
     }
 }
-var testValue = 6842065416
-console.log("---- ", troncature(testValue));
 
-
+function displayOnScreen(data, unite, ctxTotal, ctxAvr, ctxMin, ctxMAx) {
+    if (data.length > 0) {
+        var avr = 0
+        avr = sum(data)
+        avr = avr / data.length
+        document.querySelector(ctxTotal).innerHTML = troncature(sum(data).toFixed(2)) + unite
+        document.querySelector(ctxMin).innerHTML = troncature(Math.min.apply(null, data).toFixed(2)) + unite
+        document.querySelector(ctxMAx).innerHTML = troncature(Math.max.apply(null, data).toFixed(2)) + unite
+        document.querySelector(ctxAvr).innerHTML = troncature(avr.toFixed(2)) + unite
+    } else {
+        document.querySelector(ctxTotal).innerHTML = "---"
+        document.querySelector(ctxMin).innerHTML = "---"
+        document.querySelector(ctxMAx).innerHTML = "---"
+        document.querySelector(ctxAvr).innerHTML = "---"
+    }
+}
 $(document).ready(function () {
     $.ajax({
         type: "GET",
@@ -91,9 +102,9 @@ $(document).ready(function () {
             expeditionData = response.map((element) => element.NB_EXPEDITIONS)
             chiffaireAffaireData = response.map((element) => element.CHIFFRE_AFFAIRE)
             labels = response.map((element) => moment(element.DATE_REPORT).format('DD/MM/YY'))
-            document.getElementById("nombre-expedition").innerHTML = troncature(sum(expeditionData))
-            document.getElementById("chiffre-affaire").innerHTML = troncature(sum(chiffaireAffaireData).toFixed(2)) + `Dhs`
 
+            displayOnScreen(expeditionData, "", "#total-expeditions .value", "#moyenne-expeditions .value", "#min-expeditions .value", "#max-expeditions .value")
+            displayOnScreen(chiffaireAffaireData, "Dhs", "#total-chiffre-affaire .value", "#moyenne-chiffre-affaire .value", "#min-chiffre-affaire .value", "#max-chiffre-affaire .value")
             datasets = [{
                 label: "Nombre d'expéditions",
                 type: 'bar',
@@ -154,9 +165,8 @@ async function expeditionGlobalChart(start, end) {
         }
         MyChart.update()
 
-        document.getElementById("nombre-expedition").innerHTML = troncature(sum(expeditionData))
-        document.getElementById("chiffre-affaire").innerHTML = troncature(sum(chiffaireAffaireData).toFixed(2)) + `Dhs`
-
+        displayOnScreen(expeditionData, "", "#total-expeditions .value", "#moyenne-expeditions .value", "#min-expeditions .value", "#max-expeditions .value")
+        displayOnScreen(chiffaireAffaireData, "Dhs", "#total-chiffre-affaire .value", "#moyenne-chiffre-affaire .value", "#min-chiffre-affaire .value", "#max-chiffre-affaire .value")
     }
     $.ajax({
         type: "GET",

@@ -16,9 +16,12 @@
 
 {{-- Le app bar --}}
 <header class="header" id="header">
-    <div class="header_toggle">
+    {{-- <div class="header_toggle">
         <i class='bx bx-menu' id="header-toggle"></i>
-    </div>
+    </div> --}}
+    <a href="{{ route('accueil') }}" class="nav_logo_container">
+        <div class="dashboard-logo"></div>
+    </a>
     <div style="display: flex; justify-content : center; align-items : center;">
         <!-- input du filtre  -->
         <div class="filter-container">
@@ -28,9 +31,6 @@
         {{-- <script src="components/test.js" type="module"></script> --}}
     </div>
 
-    <a href="{{ route('accueil') }}" class="nav_logo_container">
-        <div class="dashboard-logo"></div>
-    </a>
 </header>
 
 
@@ -39,6 +39,9 @@
     <nav class="nav">
         <div>
             <div class="nav_list">
+                <div class="header_toggle">
+                    <i class='bx bx-menu' id="header-toggle"></i>
+                </div>
                 <a href="{{ route('accueil') }}" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span
                         class="nav_name">Dashboard</span> </a>
                 <a href="#" class="nav_link">

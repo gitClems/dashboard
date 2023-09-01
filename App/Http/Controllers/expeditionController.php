@@ -38,6 +38,6 @@ class expeditionController extends Controller {
         );
         $min = $monMin[ 0 ]->myMin;
         $max = $monMax[ 0 ]->myMax;
-        return view( 'dashboard', compact( [ 'result', 'min', 'max' ] ) );
+        return view( 'accueil', compact( [ 'result', 'min', 'max' ] ) );
     }
 }
