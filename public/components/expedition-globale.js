@@ -74,20 +74,65 @@ function troncature(param) {
     }
 }
 
-function displayOnScreen(data, unite, ctxTotal, ctxAvr, ctxMin, ctxMAx) {
+function displayOnScreen(data, unite, ctxTotal, ctxAvg, ctxMin, ctxMAx) {
+    var total = document.querySelector(ctxTotal + " .value")
+    var min = document.querySelector(ctxMin + " .value")
+    var max = document.querySelector(ctxMAx + " .value")
+    var moyenne = document.querySelector(ctxAvg + " .value")
+    
     if (data.length > 0) {
-        var avr = 0
-        avr = sum(data)
-        avr = avr / data.length
-        document.querySelector(ctxTotal).innerHTML = troncature(sum(data).toFixed(2)) + unite
-        document.querySelector(ctxMin).innerHTML = troncature(Math.min.apply(null, data).toFixed(2)) + unite
-        document.querySelector(ctxMAx).innerHTML = troncature(Math.max.apply(null, data).toFixed(2)) + unite
-        document.querySelector(ctxAvr).innerHTML = troncature(avr.toFixed(2)) + unite
+        var Avg = 0
+        Avg = sum(data)
+        Avg = Avg / data.length
+        total.innerHTML = troncature(sum(data).toFixed(2)) + unite
+        min.innerHTML = troncature(Math.min.apply(null, data).toFixed(2)) + unite
+        max.innerHTML = troncature(Math.max.apply(null, data).toFixed(2)) + unite
+        moyenne.innerHTML = troncature(Avg.toFixed(2)) + unite
+
+        $(ctxTotal).mouseover(function () {
+            console.log(sum(data).toFixed(2));
+            $(ctxTotal + " .tooltip-text").html(sum(data).toFixed(2))
+        })
+
+        $(ctxAvg).mouseover(function () {
+            console.log(Avg.toFixed(2));
+            $(ctxAvg + " .tooltip-text").html(Avg.toFixed(2))
+        })
+
+        $(ctxMAx).mouseover(function () {
+            console.log(Math.max.apply(null, data).toFixed(2));
+            $(ctxMAx + " .tooltip-text").html(Math.max.apply(null, data).toFixed(2))
+        })
+
+        $(ctxMin).mouseover(function () {
+            console.log(Math.min.apply(null, data).toFixed(2));
+            $(ctxMin + " .tooltip-text").html(Math.min.apply(null, data).toFixed(2))
+        })
     } else {
-        document.querySelector(ctxTotal).innerHTML = "---"
-        document.querySelector(ctxMin).innerHTML = "---"
-        document.querySelector(ctxMAx).innerHTML = "---"
-        document.querySelector(ctxAvr).innerHTML = "---"
+        total.innerHTML = "---"
+        min.innerHTML = "---"
+        max.innerHTML = "---"
+        moyenne.innerHTML = "---"
+
+        $(ctxTotal).mouseover(function () {
+            console.log("---");
+            $(ctxTotal + " .tooltip-text").html("---")
+        })
+
+        $(ctxAvg).mouseover(function () {
+            console.log("---");
+            $(ctxAvg + " .tooltip-text").html("---")
+        })
+
+        $(ctxMAx).mouseover(function () {
+            console.log("---");
+            $(ctxMAx + " .tooltip-text").html("---")
+        })
+
+        $(ctxMin).mouseover(function () {
+            console.log("---");
+            $(ctxMin + " .tooltip-text").html("---")
+        })
     }
 }
 $(document).ready(function () {
@@ -103,8 +148,8 @@ $(document).ready(function () {
             chiffaireAffaireData = response.map((element) => element.CHIFFRE_AFFAIRE)
             labels = response.map((element) => moment(element.DATE_REPORT).format('DD/MM/YY'))
 
-            displayOnScreen(expeditionData, "", "#total-expeditions .value", "#moyenne-expeditions .value", "#min-expeditions .value", "#max-expeditions .value")
-            displayOnScreen(chiffaireAffaireData, "Dhs", "#total-chiffre-affaire .value", "#moyenne-chiffre-affaire .value", "#min-chiffre-affaire .value", "#max-chiffre-affaire .value")
+            displayOnScreen(expeditionData, "", "#total-expeditions", "#moyenne-expeditions", "#min-expeditions", "#max-expeditions")
+            displayOnScreen(chiffaireAffaireData, "Dhs", "#total-chiffre-affaire", "#moyenne-chiffre-affaire", "#min-chiffre-affaire", "#max-chiffre-affaire")
             datasets = [{
                 label: "Nombre d'expéditions",
                 type: 'bar',
@@ -165,8 +210,8 @@ async function expeditionGlobalChart(start, end) {
         }
         MyChart.update()
 
-        displayOnScreen(expeditionData, "", "#total-expeditions .value", "#moyenne-expeditions .value", "#min-expeditions .value", "#max-expeditions .value")
-        displayOnScreen(chiffaireAffaireData, "Dhs", "#total-chiffre-affaire .value", "#moyenne-chiffre-affaire .value", "#min-chiffre-affaire .value", "#max-chiffre-affaire .value")
+        displayOnScreen(expeditionData, "", "#total-expeditions", "#moyenne-expeditions", "#min-expeditions", "#max-expeditions")
+        displayOnScreen(chiffaireAffaireData, "Dhs", "#total-chiffre-affaire", "#moyenne-chiffre-affaire", "#min-chiffre-affaire", "#max-chiffre-affaire")
     }
     $.ajax({
         type: "GET",

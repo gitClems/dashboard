@@ -51,7 +51,7 @@
         border: 2px solid rgba(0, 0, 0);
         border-bottom: transparent;
         border-right: transparent;
-        animation: scroll-down 1s ease-out infinite;
+        animation: scroll-up 1s ease-out infinite;
     }
 
     #myBtn::before {
@@ -59,23 +59,23 @@
         animation-delay: 0.3s;
     }
 
-    @keyframes scroll-down {
-        0% {
-            opacity: 0;
-        }
-
-        30% {
-            opacity: 1;
-        }
-
-        60% {
-            opacity: 1;
-        }
+    @keyframes scroll-up {
 
         100% {
-            top: 90%;
             opacity: 0;
         }
+        90% {
+            opacity: 1;
+        }
+         30% {
+            opacity: 1;
+        } 
+
+        0% {
+            top: 95%;
+            opacity: 0;
+        }
+
     }
 </style>
 <script>
