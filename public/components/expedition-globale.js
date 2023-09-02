@@ -90,22 +90,18 @@ function displayOnScreen(data, unite, ctxTotal, ctxAvg, ctxMin, ctxMAx) {
         moyenne.innerHTML = troncature(Avg.toFixed(2)) + unite
 
         $(ctxTotal).mouseover(function () {
-            console.log(sum(data).toFixed(2));
             $(ctxTotal + " .tooltip-text").html(sum(data).toFixed(2))
         })
 
         $(ctxAvg).mouseover(function () {
-            console.log(Avg.toFixed(2));
             $(ctxAvg + " .tooltip-text").html(Avg.toFixed(2))
         })
 
         $(ctxMAx).mouseover(function () {
-            console.log(Math.max.apply(null, data).toFixed(2));
             $(ctxMAx + " .tooltip-text").html(Math.max.apply(null, data).toFixed(2))
         })
 
         $(ctxMin).mouseover(function () {
-            console.log(Math.min.apply(null, data).toFixed(2));
             $(ctxMin + " .tooltip-text").html(Math.min.apply(null, data).toFixed(2))
         })
     } else {
@@ -115,22 +111,18 @@ function displayOnScreen(data, unite, ctxTotal, ctxAvg, ctxMin, ctxMAx) {
         moyenne.innerHTML = "---"
 
         $(ctxTotal).mouseover(function () {
-            console.log("---");
             $(ctxTotal + " .tooltip-text").html("---")
         })
 
         $(ctxAvg).mouseover(function () {
-            console.log("---");
             $(ctxAvg + " .tooltip-text").html("---")
         })
 
         $(ctxMAx).mouseover(function () {
-            console.log("---");
             $(ctxMAx + " .tooltip-text").html("---")
         })
 
         $(ctxMin).mouseover(function () {
-            console.log("---");
             $(ctxMin + " .tooltip-text").html("---")
         })
     }

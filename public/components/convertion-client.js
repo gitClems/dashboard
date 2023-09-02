@@ -40,19 +40,20 @@ function updateCharts(response, MyChart) {
     }, 0)
 
     data = [nbNvClient, nbNvInscrit - nbNvClient]
+    console.log(data);
     labels = [
-        `Nouveaux clients : ${contractInt(nbNvInscrit) == 100.00 ? "    0.00" : contractInt(nbNvClient)}%`,
-        `Nouveaux inscrits : ${contractInt(nbNvClient) == 100.00 ? "    0.00" : contractInt(nbNvInscrit)}%`,
+        `Nouveaux clients : ${contractInt(nbNvInscrit - nbNvClient, nbNvInscrit) == 100.00 ? "    0.00" : contractInt(nbNvClient, nbNvInscrit)}%`,
+        `Clients restants : ${contractInt(nbNvClient, nbNvInscrit) == 100.00 ? "    0.00" : contractInt(nbNvInscrit - nbNvClient, nbNvInscrit)}%`,
     ]
     MyChart.data.labels = labels
     MyChart.data.datasets[0].data = data
     MyChart.update()
 }
 
-function contractInt(param) {
-    param = 100 * (param / (nbNvInscrit + nbNvClient))
-    if (param) {
-        return param.toFixed(2)
+function contractInt(x, total) {
+    x = 100 * (x / (total))
+    if (x) {
+        return x.toFixed(2)
     } else {
         return "---"
     }
@@ -79,12 +80,12 @@ $(document).ready(function () {
 
             data = [nbNvClient, nbNvInscrit - nbNvClient]
             labels = [
-                `Nouveaux clients : ${contractInt(nbNvInscrit) == 100.00 ? "    0.00" : contractInt(nbNvClient)}%`,
-                `Nouveaux inscrits : ${contractInt(nbNvClient) == 100.00 ? "    0.00" : contractInt(nbNvInscrit)}%`,
+                `Nouveaux clients : ${contractInt(nbNvInscrit - nbNvClient, nbNvInscrit) == 100.00 ? "    0.00" : contractInt(nbNvInscrit - nbNvClient, nbNvInscrit)}%`,
+                `Clients restants : ${contractInt(nbNvClient, nbNvInscrit) == 100.00 ? "    0.00" : contractInt(nbNvInscrit - nbNvClient, nbNvInscrit)}%`,
             ]
 
             datasets = [{
-                label: "Taux de convertion clientèle",
+                label: "Nombre",
                 data: data,
                 backgroundColor: ["rgba(255, 166, 0, 0.502)", "skyblue"],
                 borderWidth: 2,
