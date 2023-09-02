@@ -194,6 +194,7 @@
         flex-direction: column;
         transition: 0.2s;
         align-items: center;
+        cursor: pointer;
     }
 
 
@@ -232,10 +233,6 @@
         transition: 500ms;
     }
 
-    /* .value:hover {
-        visibility: hidden;
-    } */
-
     .labelle {
         font-size: 1em;
         transition: 500ms;
@@ -244,23 +241,20 @@
 
     .tooltip-text {
         visibility: hidden;
-        /* display: none; */
         position: absolute;
-        bottom: 0px;
-        right: 0px;
+        top: -10px;
+        left: -10px;
         z-index: 1;
-        width: 100%;
-        color: grey;
-        font-size: 10px;
-        background-color: white;
-        border-radius: 5px;
-        box-shadow: 0.5px 0.5px 5px grey;
+        color: white;
+        font-weight: bold;
+        font-size: 11px;
+        background-color: rgba(128, 128, 128, 0.5);
+        border-radius: 3px;
         padding: 5px;
     }
 
     .hover-text:hover .tooltip-text {
         visibility: visible;
-        cursor: pointer;
     }
 
 
