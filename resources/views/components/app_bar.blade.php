@@ -27,10 +27,10 @@
         <div class="filter-container">
             <input type="text" id="dateRangeInput">
         </div>
-        <!-- javascript -->
-        {{-- <script src="components/test.js" type="module"></script> --}}
     </div>
-
+    <div class="error-append-container">
+        <span class="data-available-status"></span>
+    </div>
 </header>
 
 
@@ -71,5 +71,4 @@
             <span class="nav_name">SignOut</span>
         </a>
     </nav>
-
 </div>

@@ -42,6 +42,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            
         }
 
         .dashboard-main-container {

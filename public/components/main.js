@@ -1,6 +1,7 @@
 import achatPacksGlobalChart from "./achat-pack-expedition.js";
 import chiffreAffaireGlobalChart from "./chiffre-affaire-globale.js";
 import convertionClient from "./convertion-client.js";
+import getError from "./error.js";
 import expeditionGlobalChart from "./expedition-globale.js";
 import typeExpeditionGlobalChart from "./type-expedition.js";
 export var start = moment().startOf('week')
@@ -89,6 +90,7 @@ $(document).ready(function () {
                 end = selectedDates.length > 1 ? selectedDates[1] : moment(start).subtract(1, 'day');
                 end.setHours(23, 59, 59);
                 try {
+                    getError(start, end)
                     expeditionGlobalChart(start, end)
                     chiffreAffaireGlobalChart(start, end)
                     typeExpeditionGlobalChart(start, end)

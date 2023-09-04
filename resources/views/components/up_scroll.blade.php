@@ -51,7 +51,7 @@
         border: 2px solid rgba(0, 0, 0);
         border-bottom: transparent;
         border-right: transparent;
-        animation: scroll-up 1s ease-out infinite;
+        animation: scroll-up .9s ease-out infinite;
     }
 
     #myBtn::before {

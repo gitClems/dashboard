@@ -75,3 +75,14 @@
     background-color: #3f4458;
     border-bottom: 2px solid rgba(255, 255, 255, 0.25);
 }
+
+
+.error-append-container{
+    position: absolute;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    bottom: -20px;
+    height : 20px;
+    width : 70%;
+}

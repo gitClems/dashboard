@@ -1,6 +1,12 @@
 import { end, start } from "./main1.js"
 
-const ctx = $("#convertion-client-chart")
+const ctx = document.getElementById("convertion-client-chart").getContext("2d")
+const gradientSegment = ctx.createLinearGradient(0, 0, 200, 0)
+gradientSegment.addColorStop(0, 'red')
+gradientSegment.addColorStop(0.2, 'orange')
+gradientSegment.addColorStop(0.4, 'yellow')
+gradientSegment.addColorStop(0.8, 'yellowgreen')
+gradientSegment.addColorStop(1, 'green')
 var datasets
 var nbNvInscrit
 var nbNvClient
@@ -15,9 +21,42 @@ var jaugeContainer = {
         ctx.save()
         const xCoor = chart.getDatasetMeta(0).data[0].x
         const yCoor = chart.getDatasetMeta(0).data[0].y
-        // console.log(xCoor," - ",yCoor);
-        ctx.fillRect(xCoor, yCoor, 400, 5)
-        ctx.fillText('0', left + 2, yCoor + 10)
+        const niveau = data.datasets[0].data[0]
+        const nbNvClientRestant = data.datasets[0].data[1]
+
+        ctx.font = "15px none"
+        ctx.textBaseLine = "top"
+
+        ctx.textAlign = "left"
+        ctx.fillStyle = "black"
+        ctx.fillText("0%", left + 2, yCoor + 15)
+
+        ctx.textAlign = "right"
+        ctx.fillStyle = "black"
+        ctx.fillText("100%", right, yCoor + 15)
+
+        var fillColor
+        if (0 <= getPercentage(niveau, niveau + nbNvClientRestant) < 20) {
+            fillColor = "red"
+        }
+        if (20 <= getPercentage(niveau, niveau + nbNvClientRestant) && getPercentage(niveau, niveau + nbNvClientRestant) < 40) {
+            fillColor = "orange"
+        }
+        if (40 <= getPercentage(niveau, niveau + nbNvClientRestant) && getPercentage(niveau, niveau + nbNvClientRestant) < 60) {
+            fillColor = "yellow"
+        }
+        if (60 <= getPercentage(niveau, niveau + nbNvClientRestant) && getPercentage(niveau, niveau + nbNvClientRestant) < 80) {
+            fillColor = "yellowgreen"
+        }
+        if (80 <= getPercentage(niveau, niveau + nbNvClientRestant) && getPercentage(niveau, niveau + nbNvClientRestant) <= 100) {
+            fillColor = "green"
+        }
+        
+        ctx.font = "50px none"
+        ctx.textAlign = "center"
+        ctx.textBaseLine = "bottom"
+        ctx.fillStyle = fillColor
+        ctx.fillText(getPercentage(niveau, niveau + nbNvClientRestant) + "%", xCoor, yCoor)
     }
 }
 var options = {
@@ -40,22 +79,16 @@ function updateCharts(response, MyChart) {
     }, 0)
 
     data = [nbNvClient, nbNvInscrit - nbNvClient]
-    console.log(data);
-    labels = [
-        `Nouveaux clients : ${contractInt(nbNvInscrit - nbNvClient, nbNvInscrit) == 100.00 ? "    0.00" : contractInt(nbNvClient, nbNvInscrit)}%`,
-        `Clients restants : ${contractInt(nbNvClient, nbNvInscrit) == 100.00 ? "    0.00" : contractInt(nbNvInscrit - nbNvClient, nbNvInscrit)}%`,
-    ]
-    MyChart.data.labels = labels
     MyChart.data.datasets[0].data = data
     MyChart.update()
 }
 
-function contractInt(x, total) {
+function getPercentage(x, total) {
     x = 100 * (x / (total))
     if (x) {
         return x.toFixed(2)
     } else {
-        return "---"
+        return 0
     }
 }
 
@@ -80,23 +113,23 @@ $(document).ready(function () {
 
             data = [nbNvClient, nbNvInscrit - nbNvClient]
             labels = [
-                `Nouveaux clients : ${contractInt(nbNvInscrit - nbNvClient, nbNvInscrit) == 100.00 ? "    0.00" : contractInt(nbNvInscrit - nbNvClient, nbNvInscrit)}%`,
-                `Clients restants : ${contractInt(nbNvClient, nbNvInscrit) == 100.00 ? "    0.00" : contractInt(nbNvInscrit - nbNvClient, nbNvInscrit)}%`,
+                `Client.e(s) :`,
+                `Restant.e(s) :`
             ]
 
             datasets = [{
-                label: "Nombre",
+                label: "Total",
                 data: data,
-                backgroundColor: ["rgba(255, 166, 0, 0.502)", "skyblue"],
-                borderWidth: 2,
+                backgroundColor: [gradientSegment, "rgba(128, 128, 128, 0.1)"],
+                borderColor: "rgba(128, 128, 128, 0.5)",
+                borderWidth: 0.5,
                 pointStyleWidth: 1,
                 circumference: 180,
                 rotation: -90,
-                borderWidth: 0,
-                cutout: '90%'
+                cutout: '70%'
             },]
             MyChart = new Chart(ctx, {
-                type: 'doughnut',
+                type: 'pie',
                 data: {
                     labels: labels,
                     datasets: datasets

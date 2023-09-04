@@ -79,7 +79,7 @@ function displayOnScreen(data, unite, ctxTotal, ctxAvg, ctxMin, ctxMAx) {
     var min = document.querySelector(ctxMin + " .value")
     var max = document.querySelector(ctxMAx + " .value")
     var moyenne = document.querySelector(ctxAvg + " .value")
-    
+
     if (data.length > 0) {
         var Avg = 0
         Avg = sum(data)
@@ -93,17 +93,18 @@ function displayOnScreen(data, unite, ctxTotal, ctxAvg, ctxMin, ctxMAx) {
             $(ctxTotal + " .tooltip-text").html(sum(data).toFixed(2))
         })
 
-        $(ctxAvg).mouseover(function () {
-            $(ctxAvg + " .tooltip-text").html(Avg.toFixed(2))
+        $(ctxMin).mouseover(function () {
+            $(ctxMin + " .tooltip-text").html(Math.min.apply(null, data).toFixed(2))
         })
 
         $(ctxMAx).mouseover(function () {
             $(ctxMAx + " .tooltip-text").html(Math.max.apply(null, data).toFixed(2))
         })
-
-        $(ctxMin).mouseover(function () {
-            $(ctxMin + " .tooltip-text").html(Math.min.apply(null, data).toFixed(2))
+        
+        $(ctxAvg).mouseover(function () {
+            $(ctxAvg + " .tooltip-text").html(Avg.toFixed(2))
         })
+
     } else {
         total.innerHTML = "---"
         min.innerHTML = "---"
