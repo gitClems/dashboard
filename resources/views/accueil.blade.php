@@ -21,6 +21,7 @@
 
         .top-chart-chart-container {
             background-color: white;
+            box-shadow: 1px 1px 20px rgba(128, 128, 128, 0.2);
             border-radius: 5px;
             display: flex;
             flex-direction: column;
@@ -28,44 +29,50 @@
             color: white;
             font-family: 'Roboto', sans-serif;
             flex: 1;
+            max-width: 100%;
             min-width: 49%;
-            margin: 5px
+            margin: 5px;
         }
 
         .middle-chart-container {
             background-color: white;
+            box-shadow: 1px 1px 20px rgba(128, 128, 128, 0.5);
             margin: 5px;
             border-radius: 5px;
-            height: 200px;
-            width: 200px;
-            flex: 1;
+            /* height: 300px; */
+            flex: 1 ;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            
+
+        }
+
+
+        .middle-level {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            margin-top: 10px;
+            border-top: 2px solid grey;
+            padding-top: 10px;
+        }
+
+        #expedition-global-chart {
+            max-height: 400px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            #expedition-global-chart {
+                max-height: 350px;
+            }
         }
 
         .dashboard-main-container {
             width: 100%;
             margin-top: 50px;
         }
-
-        .middle-level {
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 10px;
-            border-top: 2px solid grey;
-            padding-top: 10px;
-        }
-
-
-        /* @media only screen and (max-width: 500px) {
-            .top-chart-chart-container {
-                background-color: lightblue;
-                min-width: 100%;
-            }
-        } */
     </style>
 </head>
 
@@ -80,7 +87,7 @@
         </div>
         <div class="top-level">
             <x-expedition_vue_globale></x-expedition_vue_globale>
-            <x-affaire></x-affaire>
+            {{-- <x-affaire></x-affaire> --}}
         </div>
 
         <div class="middle-level">

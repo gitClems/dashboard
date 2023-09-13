@@ -62,9 +62,9 @@ $(document).ready(function () {
             ]
 
             datasets = [{
-                label: "Nombre d'expéditions",
+                label: "Nombre d'achats",
                 data: data,
-                backgroundColor: ["yellowgreen", "#525f7f"],
+                backgroundColor: ["yellowgreen", "rgb(63, 204, 148)"],
                 borderWidth: 2,
                 pointStyleWidth: 1
             },]

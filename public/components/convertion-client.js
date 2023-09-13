@@ -2,11 +2,11 @@ import { end, start } from "./main1.js"
 
 const ctx = document.getElementById("convertion-client-chart").getContext("2d")
 const gradientSegment = ctx.createLinearGradient(0, 0, 200, 0)
-gradientSegment.addColorStop(0, 'red')
-gradientSegment.addColorStop(0.2, 'orange')
-gradientSegment.addColorStop(0.4, 'yellow')
-gradientSegment.addColorStop(0.8, 'yellowgreen')
-gradientSegment.addColorStop(1, 'green')
+gradientSegment.addColorStop(0, 'rgba(55, 222, 144, 0.50)')
+gradientSegment.addColorStop(0.2, 'rgba(55, 222, 164, 0.50)')
+gradientSegment.addColorStop(0.4, 'rgba(55, 222, 164, 0.90)')
+gradientSegment.addColorStop(0.8, 'rgba(55, 222, 164, 1)')
+gradientSegment.addColorStop(1, 'rgb(55, 88, 222)')
 var datasets
 var nbNvInscrit
 var nbNvClient
@@ -28,30 +28,14 @@ var jaugeContainer = {
         ctx.textBaseLine = "top"
 
         ctx.textAlign = "left"
-        ctx.fillStyle = "black"
+        ctx.fillStyle = "#444"
         ctx.fillText("0%", left + 2, yCoor + 15)
 
         ctx.textAlign = "right"
-        ctx.fillStyle = "black"
+        ctx.fillStyle = "#444"
         ctx.fillText("100%", right, yCoor + 15)
 
-        var fillColor
-        if (0 <= getPercentage(niveau, niveau + nbNvClientRestant) < 20) {
-            fillColor = "red"
-        }
-        if (20 <= getPercentage(niveau, niveau + nbNvClientRestant) && getPercentage(niveau, niveau + nbNvClientRestant) < 40) {
-            fillColor = "orange"
-        }
-        if (40 <= getPercentage(niveau, niveau + nbNvClientRestant) && getPercentage(niveau, niveau + nbNvClientRestant) < 60) {
-            fillColor = "yellow"
-        }
-        if (60 <= getPercentage(niveau, niveau + nbNvClientRestant) && getPercentage(niveau, niveau + nbNvClientRestant) < 80) {
-            fillColor = "yellowgreen"
-        }
-        if (80 <= getPercentage(niveau, niveau + nbNvClientRestant) && getPercentage(niveau, niveau + nbNvClientRestant) <= 100) {
-            fillColor = "green"
-        }
-        
+        var fillColor = "grey"
         ctx.font = "50px none"
         ctx.textAlign = "center"
         ctx.textBaseLine = "bottom"
@@ -64,7 +48,7 @@ var options = {
     plugins: {
         legend: {
             display: false
-        }
+        },
     },
 }
 
@@ -126,7 +110,7 @@ $(document).ready(function () {
                 pointStyleWidth: 1,
                 circumference: 180,
                 rotation: -90,
-                cutout: '70%'
+                cutout: '90%'
             },]
             MyChart = new Chart(ctx, {
                 type: 'pie',

@@ -126,52 +126,38 @@
     #total-chiffre-affaire .value,
     #total-expeditions .value {
         color: orange;
-        width: 100%
+        width: 100%;
+        border-bottom: 5px solid orange;
     }
 
-    #total-chiffre-affaire,
-    #total-expeditions {
-        border-bottom: 2px solid orange;
-    }
 
     #moyenne-chiffre-affaire .value,
     #moyenne-expeditions .value {
         color: blue;
-        width: 100%
+        width: 100%;
+        border-bottom: 5px solid blue;
     }
 
-    #moyenne-chiffre-affaire,
-    #moyenne-expeditions {
-        border-bottom: 2px solid blue;
-    }
 
     #min-chiffre-affaire .value,
     #min-expeditions .value {
         color: red;
-        width: 100%
+        width: 100%;
+        border-bottom: 5px solid red;
     }
 
-    #min-chiffre-affaire,
-    #min-expeditions {
-        border-bottom: 2px solid red;
-    }
 
     #max-chiffre-affaire .value,
     #max-expeditions .value {
         color: yellowgreen;
-        width: 100%
+        width: 100%;
+        border-bottom: 5px solid yellowgreen;
     }
-
-    #max-chiffre-affaire,
-    #max-expeditions {
-        border-bottom: 2px solid yellowgreen;
-    }
-
 
     .container {
         display: grid;
         flex-wrap: wrap;
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
     }
 
 

@@ -82,7 +82,9 @@
     display: flex;
     justify-content: end;
     align-items: center;
+    padding: 0px 10px 0px 10px;
     bottom: -20px;
+    right: 10px;
     height : 20px;
-    width : 70%;
+    width : max-content;
 }

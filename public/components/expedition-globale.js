@@ -100,7 +100,7 @@ function displayOnScreen(data, unite, ctxTotal, ctxAvg, ctxMin, ctxMAx) {
         $(ctxMAx).mouseover(function () {
             $(ctxMAx + " .tooltip-text").html(Math.max.apply(null, data).toFixed(2))
         })
-        
+
         $(ctxAvg).mouseover(function () {
             $(ctxAvg + " .tooltip-text").html(Avg.toFixed(2))
         })
