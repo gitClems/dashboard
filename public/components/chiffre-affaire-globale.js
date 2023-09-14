@@ -1,5 +1,5 @@
 
-import { end, start } from "./main1.js"
+import { end, start } from "./main.js"
 
 const ctx = $("#chiffre-affaire-global-chart")
 var data

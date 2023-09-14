@@ -1,4 +1,4 @@
-import { end, start } from "./main1.js"
+import { end, start } from "./main.js"
 
 const ctx = document.getElementById("convertion-client-chart").getContext("2d")
 const gradientSegment = ctx.createLinearGradient(0, 0, 200, 0)

@@ -18,4 +18,5 @@ use App\Http\Controllers\expeditionController;
 Route::get('/', function () {return view('index');})->name("index");
 Route::get('/dashboard',[expeditionController1::class,'display'])->name("dashboard");
 Route::get('/accueil',[expeditionController::class,'display'])->name("accueil");
-Route::get('/daterange', function () {return view('test');})->name('daterange');
+Route::get('/rapport', function () {return view('report');})->name('rapport');
+Route::get('/register', function () {return view('register');})->name('daterange');

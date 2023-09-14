@@ -1,4 +1,4 @@
-import { end, start } from "./main1.js"
+import { end, start } from "./main.js"
 
 const ctx = $("#expedition-global-chart")
 var expeditionData
