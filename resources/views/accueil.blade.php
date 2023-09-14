@@ -12,7 +12,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-        .top-level {
+        .main-screen {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-evenly;
@@ -39,7 +39,6 @@
             box-shadow: 1px 1px 20px rgba(128, 128, 128, 0.5);
             margin: 5px;
             border-radius: 5px;
-            /* height: 300px; */
             flex: 1 ;
             display: flex;
             flex-direction: column;
@@ -85,9 +84,8 @@
         <div class="screen-chiffre">
             <x-affichage_chiffre></x-affichage_chiffre>
         </div>
-        <div class="top-level">
+        <div class="main-screen">
             <x-expedition_vue_globale></x-expedition_vue_globale>
-            {{-- <x-affaire></x-affaire> --}}
         </div>
 
         <div class="middle-level">
