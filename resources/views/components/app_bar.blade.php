@@ -16,9 +16,6 @@
 
 {{-- Le app bar --}}
 <header class="header" id="header">
-    {{-- <div class="header_toggle">
-        <i class='bx bx-menu' id="header-toggle"></i>
-    </div> --}}
     <a href="{{ route('accueil') }}" class="nav_logo_container">
         <div class="dashboard-logo"></div>
     </a>

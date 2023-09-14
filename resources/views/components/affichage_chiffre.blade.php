@@ -171,7 +171,6 @@
 
     .container-item {
         color: #495057;
-        /* width: 100%; */
         border-radius: 5px;
         flex: 1;
         margin: 5px;

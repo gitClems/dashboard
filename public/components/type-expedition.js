@@ -23,7 +23,6 @@ function updateCharts(response, MyChart) {
         return accumulator + currentValue
     }, 0)
     dom = dom - c2c - aio
-    // console.log(dom);
 
     data = [c2c, aio, dom]
     labels = [
@@ -31,7 +30,6 @@ function updateCharts(response, MyChart) {
         `AIO : ${getPercentage(dom, aio + c2c + dom) == 100.00 || getPercentage(c2c, aio + c2c + dom) == 100.00 ? "    0.00" : getPercentage(aio, aio + c2c + dom)}%`,
         `DOM : ${getPercentage(aio, aio + c2c + dom) == 100.00 || getPercentage(c2c, aio + c2c + dom) == 100.00 ? "    0.00" : getPercentage(dom, aio + c2c + dom)}%`,
     ]
-    // labels = ["C2C", "AIO", "DOM"]
     MyChart.data.labels = labels
     MyChart.data.datasets[0].data = data
     MyChart.update()
@@ -69,7 +67,6 @@ $(document).ready(function () {
                 return accumulator + currentValue
             }, 0)
             dom = dom - c2c - aio
-            // console.log(dom);
 
             data = [c2c, aio, dom]
             labels = [

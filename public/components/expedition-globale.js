@@ -188,7 +188,6 @@ $(document).ready(function () {
     });
 })
 async function expeditionGlobalChart(start, end) {
-    // console.log(start.toISOString());
     function updateCharts(response, MyChart) {
         expeditionData = response.map((element) => element.NB_EXPEDITIONS)
         chiffaireAffaireData = response.map((element) => element.CHIFFRE_AFFAIRE)
